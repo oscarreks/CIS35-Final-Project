@@ -3,5 +3,7 @@ Repository for storing the Unity files for our game
 
 
 # Members
->Oscar Reksoatmodjo - Coding and Design
->Tony Reksoatmodjo-  Coding and Art
+- Oscar oscarreks@gmail.com - Coding and Design
+
+- Tony toscarreks@gmail.com -  Coding and Art
+
