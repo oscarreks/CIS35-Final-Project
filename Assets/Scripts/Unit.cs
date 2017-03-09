@@ -8,7 +8,6 @@ public class Unit : MonoBehaviour
     public UNIT_NAME _name;
     public TEAM _team;
 
-    private bool isMoving = true;
     private float _fire_cooldown; 
     public GameObject target;
     public float _attack, _health, _speed, _cost, _range, _attack_speed;
