@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4699290699370766}
   - component: {fileID: 212514764593270032}
   - component: {fileID: 114163002750165604}
+  - component: {fileID: 61064840282661894}
   m_Layer: 0
   m_Name: RedTank
   m_TagString: Untagged
@@ -35,12 +36,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276498733352212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: -1.613882, y: -1.3630759, z: -2}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61064840282661894
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276498733352212}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -0.038166165}
+  serializedVersion: 2
+  m_Size: {x: 0.45, y: 0.41366768}
 --- !u!114 &114163002750165604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 0
-  team: 0
+  _team: 0
   isMoving: 1
   target: {fileID: 0}
   _attack: 0
@@ -61,6 +76,8 @@ MonoBehaviour:
   _speed: 0
   _cost: 0
   _range: 0
+  bullet_prefab: {fileID: 1953314100899828, guid: 36f2d2ffa9041d14285ce00b818a3386,
+    type: 2}
 --- !u!212 &212514764593270032
 SpriteRenderer:
   m_ObjectHideFlags: 1

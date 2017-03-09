@@ -6,11 +6,13 @@ public class Unit : MonoBehaviour
 {
 
     public UNIT_NAME _name;
-    public TEAM team;
+    public TEAM _team;
 
-    public bool isMoving = true;
+    private bool isMoving = true;
+    private float _fire_cooldown; 
     public GameObject target;
-    public float _attack, _health, _speed, _cost, _range;
+    public float _attack, _health, _speed, _cost, _range, _attack_speed;
+    public GameObject bullet_prefab;
 
     private List<GameObject> _enemyTeam;
 
@@ -26,12 +28,13 @@ public class Unit : MonoBehaviour
         _speed = UnitStats.index[(int)_name].speed;
         _cost = UnitStats.index[(int)_name].cost;
         _range = UnitStats.index[(int)_name].range;
+        _attack_speed = UnitStats.index[(int)_name].attack_speed;
         //grab appropriate sprite/prefab/whatever
 
-        if (team == TEAM.RED)
+        if (_team == TEAM.RED)
             _enemyTeam = GameManager.instance.team2;
 
-        if (team == TEAM.GREEN)
+        if (_team == TEAM.GREEN)
             _enemyTeam = GameManager.instance.team1;
 
         DetermineTarget();
@@ -40,9 +43,15 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
+        _fire_cooldown += Time.deltaTime;
+
         if (TargetInRange())
         {
-            attackTarget();
+            if (_fire_cooldown > _attack_speed)
+            {
+                fireTowardsTarget();
+                _fire_cooldown = 0;
+            }
         }
         else
         {
@@ -53,6 +62,11 @@ public class Unit : MonoBehaviour
         {
             startDeath();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print("I'M HIT");
     }
 
 
@@ -79,25 +93,33 @@ public class Unit : MonoBehaviour
         */
     }
 
+    
     private bool TargetInRange()
     {
         return Vector2.Distance(transform.position, target.transform.position) < _range;
     }
 
-    private void attackTarget()
+
+    // Fires a Bullet gameobject towards the coords of the enemies
+    private void fireTowardsTarget()
     {
-        target = _enemyTeam[0];
+        GameObject newBullet = Instantiate(bullet_prefab, transform.position, Quaternion.identity);
+        newBullet.GetComponent<MoveBullet>().target = target.transform.position;
+        newBullet.GetComponent<MoveBullet>()._team = _team;
     }
 
     private void startDeath()
     {
         //Call on Destroy(), update the GameManager's arrays.
+        Destroy(gameObject);
     }
 
     public void addHealth(float hp)
     {
+        print("IVE BEEN HIT");
         _health += hp;
     }
+
 
 
 }

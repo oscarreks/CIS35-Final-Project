@@ -4,25 +4,37 @@ using UnityEngine;
 
 public class MoveBullet : MonoBehaviour {
 
-    public TEAM team;
+    public TEAM _team;
     public float _speed = 5.0f;
     public float _damage = 10.0f;
+    public Vector2 target;  //Assign the target
+    public Vector3 movementVector;
+
+    void Start()
+    {
+        movementVector = target - (Vector2)transform.position;
+        movementVector.Normalize();
+    }
 
 	void Update () {
-        transform.position += transform.forward * Time.deltaTime * _speed;
+        transform.position += movementVector * Time.deltaTime * _speed;
+        if (outOfBounds())
+        {
+            print("I WENT OUR OF BOUNDS");
+            Destroy(gameObject);
+        }
     }
 
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (outOfBounds())
+        print("MY COORDS ARE" + transform.position);
+
+        if (col.gameObject.GetComponent<Unit>()._team != _team)
         {
-            Destroy(this);
-        }
-        else if (col.gameObject.GetComponent<Unit>().team != team)
-        {
-            col.gameObject.GetComponent<Unit>().addHealth(_damage);
-            Destroy(this);
+            col.gameObject.SendMessage("addHealth", _damage);
+            print("I DID DAMAGE");
+            Destroy(gameObject);
         }
     }
 

@@ -38,11 +38,7 @@ public class GameManager : MonoBehaviour{
             var mousey = Input.mousePosition.y;
             var ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
 
-
-            if (Input.GetMouseButtonDown(0)) {
-                GameObject n = Instantiate(prefabs[0], ray.origin, Quaternion.identity);
-                team1.Add(n);
-            }
+            spawn(prefabs[0], TEAM.RED, UNIT_NAME.TANK, ray.origin);
         }
         else if (Input.GetMouseButtonDown(1))
         {
@@ -51,12 +47,7 @@ public class GameManager : MonoBehaviour{
             var mousey = Input.mousePosition.y;
             var ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
 
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                GameObject n = Instantiate(prefabs[1], ray.origin, Quaternion.identity);
-                team1.Add(n);
-            }
+            spawn(prefabs[1], TEAM.GREEN, UNIT_NAME.MTANK, ray.origin);
         }
     }
 
@@ -64,17 +55,15 @@ public class GameManager : MonoBehaviour{
     private void SetupField()
     {
         spawn(prefabs[0], TEAM.RED, UNIT_NAME.TANK, new Vector2(-5.0f, 0));
-        spawn(prefabs[1], TEAM.GREEN, UNIT_NAME.TANK, new Vector2(5.0f, 0));
+        spawn(prefabs[1], TEAM.GREEN, UNIT_NAME.MTANK, new Vector2(5.0f, 0));
     }
 
     //For spawning a unit with an assigned team
     public void spawn(GameObject prefab, TEAM t, UNIT_NAME n, Vector2 start)
     {
-        Unit um = prefab.GetComponent<Unit>();
-        um.team = t;
-        um._name = n;
-
         GameObject newUnit = Instantiate(prefab, start, Quaternion.identity);
+        newUnit.GetComponent<Unit>()._team = t;
+        newUnit.GetComponent<Unit>()._name = n;
 
         if (t == TEAM.GREEN)
         {
@@ -86,8 +75,5 @@ public class GameManager : MonoBehaviour{
             team1.Add(newUnit);
             return;
         }
-
-
-
     }
 }
