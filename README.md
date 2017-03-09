@@ -12,6 +12,8 @@ Status: early prototype
 - Tony toscarreks@gmail.com -  Coding and Art
 
  ![green][greentank]
+ 
+ *sprites are currently borrowed from Advance Wars*
 
 [greentank]: https://github.com/oscarreks/CIS35-Final-Project/blob/master/Assets/Sprites/Tank-Green.png "choo choo"
 [redtank]: https://github.com/oscarreks/CIS35-Final-Project/blob/master/Assets/Sprites/APC-red.png "vrummm"
