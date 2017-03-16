@@ -53,7 +53,9 @@ public class DragDrop : MonoBehaviour {
         draggingItem = false;
         draggedObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
-	// Update is called once per frame
+
+	// Uncomment to get dragdrop working again
+    /*
 	void Update () {
         if (hasInput())
         {
@@ -64,6 +66,6 @@ public class DragDrop : MonoBehaviour {
             dropItem();
         }
 	}
-
+    */
 
 }

@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour{
     public GameObject[] prefabs = new GameObject[2];
     public List<GameObject> team1 = new List<GameObject>();
     public List<GameObject> team2 = new List<GameObject>();
+    public GameObject HQ1;
+    public GameObject HQ2;
     public GameObject prefab;
 
     void Awake()
@@ -26,7 +28,9 @@ public class GameManager : MonoBehaviour{
     void Start()
     {
         //prefabs = Resources.LoadAll("UnitPrefabs") as GameObject[];
+        Physics2D.gravity = Vector2.zero;
         SetupField();
+
     }
 
     void Update()
@@ -59,9 +63,9 @@ public class GameManager : MonoBehaviour{
     }
 
     //For spawning a unit with an assigned team
-    public void spawn(GameObject prefab, TEAM t, UNIT_NAME n, Vector2 start)
+    public void spawn(GameObject prefab, TEAM t, UNIT_NAME n, Vector2 spawnPoint)
     {
-        GameObject newUnit = Instantiate(prefab, start, Quaternion.identity);
+        GameObject newUnit = Instantiate(prefab, spawnPoint, Quaternion.identity);
         newUnit.GetComponent<Unit>()._team = t;
         newUnit.GetComponent<Unit>()._name = n;
 
@@ -77,3 +81,5 @@ public class GameManager : MonoBehaviour{
         }
     }
 }
+
+

@@ -14,6 +14,11 @@ public class Unit : MonoBehaviour
     public GameObject bullet_prefab;
 
     private List<GameObject> _enemyTeam;
+    private GameObject _enemyHQ;
+    private Rigidbody2D _rb;
+    private ConstantForce2D _cf;
+
+    private bool targetingHQ;
 
 
     //Reference some default target in the gameManager.
@@ -28,24 +33,36 @@ public class Unit : MonoBehaviour
         _cost = UnitStats.index[(int)_name].cost;
         _range = UnitStats.index[(int)_name].range;
         _attack_speed = UnitStats.index[(int)_name].attack_speed;
-        //grab appropriate sprite/prefab/whatever
 
         if (_team == TEAM.RED)
+        {
             _enemyTeam = GameManager.instance.team2;
+            _enemyHQ = GameManager.instance.HQ2;
+        }
 
         if (_team == TEAM.GREEN)
+        {
             _enemyTeam = GameManager.instance.team1;
+            _enemyHQ = GameManager.instance.HQ1;
+        }
 
+        target = _enemyHQ;
+        targetingHQ = true;
         DetermineTarget();
+        _rb = GetComponent<Rigidbody2D>();
+        //_cf = GetComponent<ConstantForce2D>();
+        //_cf.relativeForce = new Vector2(_speed, 0);
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         _fire_cooldown += Time.deltaTime;
+        DetermineTarget();
 
         if (TargetInRange())
         {
+            stopMoving();
             if (_fire_cooldown > _attack_speed)
             {
                 fireTowardsTarget();
@@ -63,49 +80,70 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+
+    // ---- MOVING AND TARGETING FUNCTIONS ----
+
+    /*
+        If no targets are within range, it will set target to closest tower
+    */
+    private void DetermineTarget()
     {
-        print("I'M HIT");
+        if (target == null || targetingHQ)
+        {
+            foreach (GameObject enemy in _enemyTeam)
+            {
+                if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) <= _range)
+                {
+                    target = enemy; //Instance or reference?
+                    targetingHQ = false;
+                    return;
+                }
+            }
+
+            target = _enemyHQ;
+            targetingHQ = true;
+        }
+
+    }
+
+
+    private void moveTowardsTarget()
+    {
+        transform.rotation = FaceObject(transform.position, target.transform.position);
+        Vector2 move_dir = target.transform.position - transform.position;
+        _rb.velocity = move_dir.normalized * _speed;
     }
 
 
     /*
-        Moves the unit towards its target; if none in range, heads towards tower
-    */
-    private void moveTowardsTarget()
+    Will create a bullet object and fire it towards the target's position
+*/
+    private void fireTowardsTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, _speed * Time.deltaTime);
+        transform.rotation = FaceObject(transform.position, target.transform.position);
+        GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
+        newBullet.GetComponent<MoveBullet>()._team = _team;
     }
 
-
-
-    private void DetermineTarget()
-    {
-        target = _enemyTeam[0];
-        /*
-        if (true) {
-            print("true");//target = getenemy.transform should be closest enemy too
-        } else {
-            //target = closest tower
-            print("switching targets");
-        }
-        */
-    }
-
-    
+    //DetermineTarget() should make sure "target" always exists;
     private bool TargetInRange()
     {
         return Vector2.Distance(transform.position, target.transform.position) < _range;
+        
     }
 
-
-    // Fires a Bullet gameobject towards the coords of the enemies
-    private void fireTowardsTarget()
+    //Faces the given target, starting position will usually be this transform
+    public Quaternion FaceObject(Vector2 startingPosition, Vector2 targetPosition)
     {
-        GameObject newBullet = Instantiate(bullet_prefab, transform.position, Quaternion.identity);
-        newBullet.GetComponent<MoveBullet>().target = target.transform.position;
-        newBullet.GetComponent<MoveBullet>()._team = _team;
+        Vector2 direction = targetPosition - startingPosition;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        return Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
+    
+    // ---- LESS IMPORTANT FUNCTIONS ----
+
 
     private void startDeath()
     {
@@ -113,12 +151,34 @@ public class Unit : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void addHealth(float hp)
+    public void addHealth(float h)
     {
+        _health += h;
         print("IVE BEEN HIT");
-        _health += hp;
+
+        StopCoroutine(pulseRed());
+        StartCoroutine(pulseRed());
     }
 
+    private IEnumerator pulseRed()
+    {
+        /*
+        for(int i = 255; i > 0; i -= 5){
+            GetComponent<SpriteRenderer>().color = new Color(i, 0, 0);
+            yield return null;
+        }*/
+        print("Current Color: " + GetComponent<SpriteRenderer>().color);
+        GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 0);
+        yield return new WaitForSeconds(1f);
+        GetComponent<SpriteRenderer>().color = Color.white;
 
+        print("RED");
+    }
+
+    private void stopMoving()
+    {
+        //_cf.relativeForce = Vector2.zero;
+        _rb.velocity = Vector2.zero;
+    }
 
 }

@@ -24,8 +24,8 @@ public static class UnitStats {
 
     public static Stats[] index =
     {
-        new Stats(10, 45, 3, 5, 2, 1),      //TANK
-        new Stats(10, 65, 2.5f, 7, 2, 1.5f),   //MTANK
+        new Stats(10, 45, 1, 5, 2, 1),      //TANK
+        new Stats(10, 65, 0.5f, 7, 2, 1.5f),   //MTANK
         new Stats(4, 25, 2, 2, 3, 2)        //SOLDIER
     };
 }
