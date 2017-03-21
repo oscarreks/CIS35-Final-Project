@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114149342388824346}
   - component: {fileID: 61431800612930486}
   - component: {fileID: 50915306865824252}
-  - component: {fileID: 247344659362964638}
   m_Layer: 0
   m_Name: GreenTank
   m_TagString: Untagged
@@ -135,13 +134,3 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!247 &247344659362964638
-ConstantForce2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1221046415578396}
-  m_Enabled: 1
-  m_Force: {x: 0, y: 0}
-  m_RelativeForce: {x: 0, y: 0}
-  m_Torque: 0

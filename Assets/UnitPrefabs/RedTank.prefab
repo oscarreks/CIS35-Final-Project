@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114163002750165604}
   - component: {fileID: 61064840282661894}
   - component: {fileID: 50811868664980394}
-  - component: {fileID: 247373808311683692}
   m_Layer: 0
   m_Name: RedTank
   m_TagString: Untagged
@@ -135,13 +134,3 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!247 &247373808311683692
-ConstantForce2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276498733352212}
-  m_Enabled: 1
-  m_Force: {x: 0, y: 0}
-  m_RelativeForce: {x: 0, y: 0}
-  m_Torque: 0

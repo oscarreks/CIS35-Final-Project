@@ -8,10 +8,13 @@ public class Unit : MonoBehaviour
     public UNIT_NAME _name;
     public TEAM _team;
 
-    private float _fire_cooldown; 
     public GameObject target;
     public float _attack, _health, _speed, _cost, _range, _attack_speed;
+    public float _fire_cooldown;
     public GameObject bullet_prefab;
+    public GameObject healthbar_prefab;
+    private GameObject healthbar;
+    public float health_distance = 2.0f;
 
     private List<GameObject> _enemyTeam;
     private GameObject _enemyHQ;
@@ -52,8 +55,17 @@ public class Unit : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         //_cf = GetComponent<ConstantForce2D>();
         //_cf.relativeForce = new Vector2(_speed, 0);
+
+        //making the healthbar
+        healthbar = Instantiate(healthbar_prefab, transform.position, Quaternion.identity);
+
     }
 
+    void Update()
+    {
+        healthbar.transform.position = transform.position + new Vector3(0, health_distance, 0);
+        healthbar.GetComponent<HealthBar>().health = _health;
+    }
 
     void FixedUpdate()
     {
@@ -155,7 +167,7 @@ public class Unit : MonoBehaviour
     {
         _health += h;
         print("IVE BEEN HIT");
-
+        
         StopCoroutine(pulseRed());
         StartCoroutine(pulseRed());
     }
@@ -168,11 +180,15 @@ public class Unit : MonoBehaviour
             yield return null;
         }*/
         print("Current Color: " + GetComponent<SpriteRenderer>().color);
-        GetComponent<SpriteRenderer>().color = new Color(0.5f, 0, 0);
-        yield return new WaitForSeconds(1f);
-        GetComponent<SpriteRenderer>().color = Color.white;
-
-        print("RED");
+        float red = 0.5f;
+        GetComponent<SpriteRenderer>().color = new Color(red, 1, 1);
+        yield return new WaitForSeconds(.1f);
+        while(red < 1.0f)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(red, 1, 1);
+            red += 0.02f;
+            yield return null;
+        }
     }
 
     private void stopMoving()

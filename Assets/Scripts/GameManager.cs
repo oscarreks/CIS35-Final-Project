@@ -14,6 +14,13 @@ public class GameManager : MonoBehaviour{
     public GameObject HQ2;
     public GameObject prefab;
 
+    public int mana1;
+    public int mana2;
+    public float mana_rate = 2.0f; //Gain 1 mana every n seconds
+    public float mana_rate_cooldown;
+    
+
+
     void Awake()
     {
         if(instance == null) //if this object has not been instantiated yet, assign it the global status
@@ -31,10 +38,20 @@ public class GameManager : MonoBehaviour{
         Physics2D.gravity = Vector2.zero;
         SetupField();
 
+        mana1 = mana2 = 3;
     }
 
     void Update()
     {
+        mana_rate_cooldown += Time.deltaTime;
+
+        if (mana_rate_cooldown > mana_rate)
+        {
+            mana_rate_cooldown = 0;
+            if (mana1 < 10) { mana1++; }
+            if (mana2 < 10) { mana2++; }
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             
