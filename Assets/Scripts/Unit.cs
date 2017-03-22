@@ -63,8 +63,8 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
-        healthbar.transform.position = transform.position + new Vector3(0, health_distance, 0);
-        healthbar.GetComponent<HealthBar>().health = _health;
+        //healthbar.transform.position = transform.position + new Vector3(0, health_distance, 0);
+        //healthbar.GetComponent<HealthBar>().health = _health;
     }
 
     void FixedUpdate()
@@ -123,8 +123,10 @@ public class Unit : MonoBehaviour
     private void moveTowardsTarget()
     {
         transform.rotation = FaceObject(transform.position, target.transform.position);
-        Vector2 move_dir = target.transform.position - transform.position;
-        _rb.velocity = move_dir.normalized * _speed;
+        //Vector2 move_dir = target.transform.position - transform.position;
+        //_rb.velocity = move_dir.normalized * _speed;
+        if (_rb.velocity.magnitude < _speed)
+            _rb.AddRelativeForce(new Vector2(_speed, 0));
     }
 
 

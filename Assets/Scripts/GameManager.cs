@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour{
             var mousey = Input.mousePosition.y;
             var ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
 
-            spawn(prefabs[0], TEAM.RED, UNIT_NAME.TANK, ray.origin);
+            spawn(TEAM.RED, UNIT_NAME.TANK, ray.origin);
         }
         else if (Input.GetMouseButtonDown(1))
         {
@@ -68,21 +68,21 @@ public class GameManager : MonoBehaviour{
             var mousey = Input.mousePosition.y;
             var ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
 
-            spawn(prefabs[1], TEAM.GREEN, UNIT_NAME.MTANK, ray.origin);
+            spawn(TEAM.GREEN, UNIT_NAME.MTANK, ray.origin);
         }
     }
 
     //To generate starting troops
     private void SetupField()
     {
-        spawn(prefabs[0], TEAM.RED, UNIT_NAME.TANK, new Vector2(-5.0f, 0));
-        spawn(prefabs[1], TEAM.GREEN, UNIT_NAME.MTANK, new Vector2(5.0f, 0));
+        spawn(TEAM.RED, UNIT_NAME.TANK, new Vector2(-5.0f, 0));
+        spawn(TEAM.GREEN, UNIT_NAME.MTANK, new Vector2(5.0f, 0));
     }
 
     //For spawning a unit with an assigned team
-    public void spawn(GameObject prefab, TEAM t, UNIT_NAME n, Vector2 spawnPoint)
+    public void spawn(TEAM t, UNIT_NAME n, Vector2 spawnPoint)
     {
-        GameObject newUnit = Instantiate(prefab, spawnPoint, Quaternion.identity);
+        GameObject newUnit = Instantiate(prefabs[(int)n], spawnPoint, Quaternion.identity);
         newUnit.GetComponent<Unit>()._team = t;
         newUnit.GetComponent<Unit>()._name = n;
 
