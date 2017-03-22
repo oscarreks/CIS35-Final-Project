@@ -12,9 +12,9 @@ public class Unit : MonoBehaviour
     public float _attack, _health, _speed, _cost, _range, _attack_speed;
     public float _fire_cooldown;
     public GameObject bullet_prefab;
-    public GameObject healthbar_prefab;
-    private GameObject healthbar;
-    public float health_distance = 2.0f;
+    //public GameObject healthbar_prefab;
+    //private GameObject healthbar;
+    //public float health_distance = 2.0f;
 
     private List<GameObject> _enemyTeam;
     private GameObject _enemyHQ;
@@ -57,7 +57,7 @@ public class Unit : MonoBehaviour
         //_cf.relativeForce = new Vector2(_speed, 0);
 
         //making the healthbar
-        healthbar = Instantiate(healthbar_prefab, transform.position, Quaternion.identity);
+        //healthbar = Instantiate(healthbar_prefab, transform.position, Quaternion.identity);
 
     }
 
