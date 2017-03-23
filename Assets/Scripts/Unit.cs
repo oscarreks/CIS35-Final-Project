@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     public TEAM _team;
 
     public GameObject target;
+    public Vector2 target_coords;
     public float _attack, _health, _speed, _cost, _range, _attack_speed;
     public float _fire_cooldown;
     public GameObject bullet_prefab;
@@ -25,12 +26,10 @@ public class Unit : MonoBehaviour
     private bool isMoving;
 
 
-    //Reference some default target in the gameManager.
-    //also grab appropriate player list for enemies.
-
-
     void Start()
     {
+
+        //TODO move all this to an init loop inside GameManager
         _attack = UnitStats.index[(int)_name].attack;
         _health = UnitStats.index[(int)_name].health;
         _speed = UnitStats.index[(int)_name].speed;
@@ -52,11 +51,9 @@ public class Unit : MonoBehaviour
 
         target = _enemyHQ;
         targetingHQ = true;
-        isMoving = true; //This may be a bit misleading, because it can be false while it gets moved by an outside force.
+        isMoving = true; //A bit misleading; it means addForce() is not being called
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
-        //_cf = GetComponent<ConstantForce2D>();
-        //_cf.relativeForce = new Vector2(_speed, 0);
 
         //making the healthbar
         //healthbar = Instantiate(healthbar_prefab, transform.position, Quaternion.identity);
@@ -69,6 +66,11 @@ public class Unit : MonoBehaviour
         //healthbar.GetComponent<HealthBar>().health = _health;
     }
 
+
+    /*
+     * FixedUpdate currently holds the 
+     * 
+     * */
     void FixedUpdate()
     {
         _fire_cooldown += Time.deltaTime;
@@ -79,11 +81,8 @@ public class Unit : MonoBehaviour
             transform.rotation = FaceObject(transform.position, target.transform.position);
             if (isMoving)
                 stopMoving();
-            if (_fire_cooldown > _attack_speed)
-            {
-                fireTowardsTarget();
-                _fire_cooldown = 0;
-            }
+
+            fireTowardsTarget();
         }
         else
         {
@@ -123,7 +122,10 @@ public class Unit : MonoBehaviour
 
     }
 
-
+    /*
+     * Perhaps I can test if this unit is flying or not, and just set the colliders accordingly
+     * 
+     * */
     private void moveTowardsTarget()
     {
         isMoving = true;
@@ -134,23 +136,35 @@ public class Unit : MonoBehaviour
 
 
     /*
-    Will create a bullet object and fire it towards the target's position
-*/
+    * Will create a bullet object and fire it towards the target's position
+    */
     private void fireTowardsTarget()
     {
-        transform.rotation = FaceObject(transform.position, target.transform.position);
-        GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
-        newBullet.GetComponent<MoveBullet>()._team = _team;
+        if (_fire_cooldown > _attack_speed)
+        {
+            GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
+            newBullet.GetComponent<MoveBullet>()._team = _team;
+
+        }
     }
 
-    //DetermineTarget() should make sure "target" always exists;
+    /* 
+     * DetermineTarget() should make sure "target" always exists;
+     * Will take the unit's "weapon" range, and initiate fire
+     * 
+     */
     private bool TargetInRange()
     {
         return Vector2.Distance(transform.position, target.transform.position) < _range;
         
     }
 
-    //Faces the given target, starting position will usually be this transform
+    /// <summary>
+    /// Returns a Quaternion with startingPosition as the origin, facing towards the target position
+    /// </summary>
+    /// <param name="startingPosition">The origin</param>
+    /// <param name="targetPosition">The target coord</param>
+    /// <returns></returns>
     public Quaternion FaceObject(Vector2 startingPosition, Vector2 targetPosition)
     {
         Vector2 direction = targetPosition - startingPosition;
@@ -161,16 +175,22 @@ public class Unit : MonoBehaviour
     
     // ---- LESS IMPORTANT FUNCTIONS ----
 
-
+    /// <summary>
+    /// Called when health is less than zero
+    /// </summary>
     private void startDeath()
     {
         //Call on Destroy(), update the GameManager's arrays.
         Destroy(gameObject);
     }
 
-    public void addHealth(float h)
+    /// <summary>
+    /// Adds health to local health. Use a negative float to take away health
+    /// </summary>
+    /// <param name="health"></param>
+    public void addHealth(float health)
     {
-        _health += h;
+        _health += health;
         print("IVE BEEN HIT");
         
         StopCoroutine(pulseRed());

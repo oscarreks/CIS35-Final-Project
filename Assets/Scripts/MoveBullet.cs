@@ -45,9 +45,9 @@ public class MoveBullet : MonoBehaviour {
 
     public bool outOfBounds()
     {
-        return transform.position.x > 10 || 
-               transform.position.x < -10 || 
-               transform.position.y > 5 || 
-               transform.position.y < -5;
+        return transform.position.x > 22 || 
+               transform.position.x < 0 || 
+               transform.position.y > 12 || 
+               transform.position.y < 0;
     }
 }
