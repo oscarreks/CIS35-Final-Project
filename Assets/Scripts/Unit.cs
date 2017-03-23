@@ -144,7 +144,7 @@ public class Unit : MonoBehaviour
         {
             GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
             newBullet.GetComponent<MoveBullet>()._team = _team;
-
+            _fire_cooldown = 0;
         }
     }
 

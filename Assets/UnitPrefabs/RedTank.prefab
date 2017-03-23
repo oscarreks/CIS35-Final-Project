@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114163002750165604}
   - component: {fileID: 61064840282661894}
   - component: {fileID: 50811868664980394}
-  - component: {fileID: 247373808311683692}
   - component: {fileID: 58828080827394128}
   m_Layer: 0
   m_Name: RedTank
@@ -39,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276498733352212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 14.40451, y: 4.367841, z: -2}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,9 +75,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: 44180e8aedb7d304d970c815f7ea130c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.06}
   serializedVersion: 2
-  m_Radius: 0.245
+  m_Radius: 0.18330383
 --- !u!61 &61064840282661894
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -107,12 +106,14 @@ MonoBehaviour:
   _name: 0
   _team: 0
   target: {fileID: 0}
+  target_coords: {x: 0, y: 0}
   _attack: 0
   _health: 0
   _speed: 0
   _cost: 0
   _range: 0
   _attack_speed: 0
+  _fire_cooldown: 0
   bullet_prefab: {fileID: 1953314100899828, guid: 36f2d2ffa9041d14285ce00b818a3386,
     type: 2}
 --- !u!212 &212514764593270032
@@ -146,17 +147,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c7904a598e017cd41be462752959002e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a160a5e38130a348917f8d3122bd6b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!247 &247373808311683692
-ConstantForce2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276498733352212}
-  m_Enabled: 1
-  m_Force: {x: 0, y: 0}
-  m_RelativeForce: {x: 0, y: 0}
-  m_Torque: 0
