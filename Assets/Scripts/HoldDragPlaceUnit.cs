@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class HoldDragPlaceUnit : MonoBehaviour {
 
-    public Sprite _button;
-    public Sprite _dragged;
     public TEAM _team;
     public UNIT_NAME _name;
 
-    private Vector2 inputPosition;
-    private float cost;
+    private int _cost;
 
-    bool dragging = false;
-    GameObject draggedObject;
-    Vector2 touchOffset;
+    bool enoughMana = false;
+    SpriteRenderer _draggedObject;
+
+    void Start()
+    {
+        GameObject temp = GameManager.instance.prefabs[(int)_name];
+        _draggedObject = new GameObject().AddComponent<SpriteRenderer>();
+        _draggedObject.transform.position = transform.position;
+        _draggedObject.enabled = false;
+        _draggedObject.sprite = temp.GetComponent<SpriteRenderer>().sprite;
+        _draggedObject.color = new Color(1, 1, 1, 0.5f);
+
+        _cost = UnitStats.index[(int)_name].cost;
+    }
+
 
     bool hasInput()
     {
@@ -25,54 +34,59 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     {
         get
         {
-            Vector2 inputPos;
-            inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            return inputPos;
+            return Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 
-    void dragOrPickup()
+    void OnMouseDown()
     {
-        inputPosition = CurrentTouchPosition;
-        if (dragging)
+        print("TOUCHED ME");
+        if (GameManager.instance.mana[(int)_team] >= _cost)
         {
-            draggedObject.transform.position = inputPosition + touchOffset;
+            enoughMana = true;
+            _draggedObject.enabled = true;
         }
-        else
-        {
-            RaycastHit2D[] touches = Physics2D.RaycastAll(inputPosition, inputPosition, 0.5f);
-            if (touches.Length > 0)
-            {
-                var hit = touches[0];
-                if (hit.transform != null)
-                {
-                    dragging = true;
-                    draggedObject = hit.transform.gameObject;
-                    touchOffset = (Vector2)hit.transform.position - inputPosition;
-                    draggedObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                }
+    }
 
+    private void OnMouseDrag()
+    {
+        if (enoughMana)
+        {
+            float x = Mathf.CeilToInt(CurrentTouchPosition.x) - 0.5f;
+            float y = Mathf.CeilToInt(CurrentTouchPosition.y) - 0.5f;
+            _draggedObject.transform.position = new Vector2(x, y);
+
+        }
+    }
+
+    private void OnMouseUp()
+    {
+        if (enoughMana)
+        {
+            if (validPlacement())
+            {
+                enoughMana = false;
+                spawnUnit();
+            }else
+            {
+                _draggedObject.enabled = false;
+                _draggedObject.transform.position = transform.position;
+                print("YOU CANT PUT THAT THERE");
             }
         }
     }
 
-    void spawnUnit()
+    private bool validPlacement()
     {
-        dragging = false;
-        GameManager.instance.spawn(_team, _name, inputPosition);
+        return true;
     }
 
-    // Uncomment to get dragdrop working again
-    /*
-	void Update () {
-        if (hasInput())
-        {
-            dragOrPickup();
-        }
-        else if(draggingItem)
-        {
-            dropItem();
-        }
-	}
-    */
+    private void spawnUnit()
+    {
+        _draggedObject.enabled = false;
+        _draggedObject.transform.position = transform.position;
+        GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
+        GameManager.instance.mana[(int)_team] -= _cost;
+    }
+
 }

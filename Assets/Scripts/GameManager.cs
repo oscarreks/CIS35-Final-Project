@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour{
     public GameObject HQ2;
     public GameObject prefab;
 
-    public int mana1;
-    public int mana2;
+    public int[] mana;
     public float mana_rate = 2.0f; //Gain 1 mana every n seconds
     public float mana_rate_cooldown;
     
@@ -38,7 +37,8 @@ public class GameManager : MonoBehaviour{
         Physics2D.gravity = Vector2.zero;
         SetupField();
 
-        mana1 = mana2 = 3;
+        mana = new int[2];
+        mana[0] = mana[1] = 3;
     }
 
     void Update()
@@ -48,13 +48,22 @@ public class GameManager : MonoBehaviour{
         if (mana_rate_cooldown > mana_rate)
         {
             mana_rate_cooldown = 0;
-            if (mana1 < 10) { mana1++; }
-            if (mana2 < 10) { mana2++; }
+            if (mana[0] < 10) { mana[0]++; }
+            if (mana[1] < 10) { mana[1]++; }
+            print("RED MANA: " + mana[0] + " - GREEN MANA: " + mana[1]);
         }
 
+        //testSpawning();
+
+    }
+
+
+    //For testing the spawn() function
+    private void testSpawning()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            
+
             var mousex = Input.mousePosition.x;
             var mousey = Input.mousePosition.y;
             var ray = Camera.main.ScreenPointToRay(new Vector3(mousex, mousey, 0));
@@ -75,8 +84,8 @@ public class GameManager : MonoBehaviour{
     //To generate starting troops
     private void SetupField()
     {
-        spawn(TEAM.RED, UNIT_NAME.TANK, new Vector2(-5.0f, 0));
-        spawn(TEAM.GREEN, UNIT_NAME.MTANK, new Vector2(5.0f, 0));
+        spawn(TEAM.RED, UNIT_NAME.TANK, new Vector2(10, 5));
+        spawn(TEAM.GREEN, UNIT_NAME.MTANK, new Vector2(4, 5));
     }
 
     //For spawning a unit with an assigned team

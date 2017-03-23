@@ -22,6 +22,7 @@ public class Unit : MonoBehaviour
     private ConstantForce2D _cf;
 
     private bool targetingHQ;
+    private bool isMoving;
 
 
     //Reference some default target in the gameManager.
@@ -51,6 +52,7 @@ public class Unit : MonoBehaviour
 
         target = _enemyHQ;
         targetingHQ = true;
+        isMoving = true; //This may be a bit misleading, because it can be false while it gets moved by an outside force.
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
         //_cf = GetComponent<ConstantForce2D>();
@@ -74,7 +76,9 @@ public class Unit : MonoBehaviour
 
         if (TargetInRange())
         {
-            stopMoving();
+            transform.rotation = FaceObject(transform.position, target.transform.position);
+            if (isMoving)
+                stopMoving();
             if (_fire_cooldown > _attack_speed)
             {
                 fireTowardsTarget();
@@ -122,11 +126,10 @@ public class Unit : MonoBehaviour
 
     private void moveTowardsTarget()
     {
+        isMoving = true;
         transform.rotation = FaceObject(transform.position, target.transform.position);
-        //Vector2 move_dir = target.transform.position - transform.position;
-        //_rb.velocity = move_dir.normalized * _speed;
         if (_rb.velocity.magnitude < _speed)
-            _rb.AddRelativeForce(new Vector2(_speed, 0));
+            _rb.AddRelativeForce(new Vector2(_speed, 0));  //In the future, to account for mass, this might be _speed*mass
     }
 
 
@@ -197,6 +200,7 @@ public class Unit : MonoBehaviour
     {
         //_cf.relativeForce = Vector2.zero;
         _rb.velocity = Vector2.zero;
+        isMoving = false;
     }
 
 }
