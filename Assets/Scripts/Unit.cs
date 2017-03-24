@@ -158,20 +158,8 @@ public class Unit : MonoBehaviour
     // ---- CORE FUNCTIONS ----
 
     /// <summary>
-    /// Returns a Quaternion with startingPosition as the origin, facing towards the target position
+    /// Faces this object towards the target mem
     /// </summary>
-    /// <param name="startingPosition">The origin</param>
-    /// <param name="targetPosition">The target coord</param>
-    /// <returns></returns>
-    /*
-    public Quaternion FaceObject(Vector2 startingPosition, Vector2 targetPosition)
-    {
-        Vector2 direction = targetPosition - startingPosition;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        return Quaternion.AngleAxis(angle, Vector3.forward);
-    }
-    */
-
     private void FaceTarget()
     {
         Vector2 direction = target.transform.position - transform.position;
