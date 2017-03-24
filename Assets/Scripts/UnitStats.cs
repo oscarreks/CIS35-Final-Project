@@ -23,6 +23,8 @@ public struct Stats
 
 public static class UnitStats {
 
+    public static float sight_radius = 4;
+
     public static Stats[] index =
     {
         new Stats(10, 45, 1, 4, 2, 1),      //TANK

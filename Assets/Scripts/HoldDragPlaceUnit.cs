@@ -11,6 +11,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     bool enoughMana = false;
     SpriteRenderer _draggedObject;
+    public float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
 
     void Start()
     {
@@ -20,8 +21,22 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         _draggedObject.enabled = false;
         _draggedObject.sprite = temp.GetComponent<SpriteRenderer>().sprite;
         _draggedObject.color = new Color(1, 1, 1, 0.5f);
+        _draggedObject.transform.localScale = new Vector3(2, 2, 2);
 
         _cost = UnitStats.index[(int)_name].cost;
+
+        _top_bounds = 12;
+        _bot_bounds = 0;
+
+        if(_team == TEAM.RED)
+        {
+            _right_bounds = 10;
+            _left_bounds = 0;
+        }else
+        {
+            _right_bounds = 22;
+            _left_bounds = 12;
+        }
     }
 
 
@@ -52,10 +67,12 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     {
         if (enoughMana)
         {
-            float x = Mathf.CeilToInt(CurrentTouchPosition.x) - 0.5f;
-            float y = Mathf.CeilToInt(CurrentTouchPosition.y) - 0.5f;
-            _draggedObject.transform.position = new Vector2(x, y);
-
+            if (validPlacement())
+            {
+                float x = Mathf.CeilToInt(CurrentTouchPosition.x) - 0.5f;
+                float y = Mathf.CeilToInt(CurrentTouchPosition.y) - 0.5f;
+                _draggedObject.transform.position = new Vector2(x, y);
+            }
         }
     }
 
@@ -71,13 +88,19 @@ public class HoldDragPlaceUnit : MonoBehaviour {
             {
                 _draggedObject.enabled = false;
                 _draggedObject.transform.position = transform.position;
-                print("YOU CANT PUT THAT THERE");
             }
         }
     }
 
     private bool validPlacement()
     {
+        if (CurrentTouchPosition.x > _right_bounds ||
+            CurrentTouchPosition.x < _left_bounds  ||
+            CurrentTouchPosition.y > _top_bounds   ||
+            CurrentTouchPosition.y < _bot_bounds)
+        {
+            return false;
+        }
         return true;
     }
 

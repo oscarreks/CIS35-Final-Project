@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Unit is the base class for the game units, but does not handle movment or attacking.
+/// </summary>
+///TODO - Cut down this class to the core, move the rest to specialized extensions 
+/// KEEP - addHealth, DetermineTarget, FaceObject, pulseRed, startDeath, stopMoving
+/// MOVE - moveTowardsToarget, lerpProjectile, targetInRange
+
 public class Unit : MonoBehaviour
 {
 
@@ -13,14 +20,10 @@ public class Unit : MonoBehaviour
     public float _attack, _health, _speed, _cost, _range, _attack_speed;
     public float _fire_cooldown;
     public GameObject bullet_prefab;
-    //public GameObject healthbar_prefab;
-    //private GameObject healthbar;
-    //public float health_distance = 2.0f;
 
     private List<GameObject> _enemyTeam;
     private GameObject _enemyHQ;
     private Rigidbody2D _rb;
-    private ConstantForce2D _cf;
 
     private bool targetingHQ;
     private bool isMoving;
@@ -54,31 +57,20 @@ public class Unit : MonoBehaviour
         isMoving = true; //A bit misleading; it means addForce() is not being called
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
-
-        //making the healthbar
-        //healthbar = Instantiate(healthbar_prefab, transform.position, Quaternion.identity);
-
     }
 
     void Update()
     {
-        //healthbar.transform.position = transform.position + new Vector3(0, health_distance, 0);
-        //healthbar.GetComponent<HealthBar>().health = _health;
+        _fire_cooldown += Time.deltaTime;
     }
 
-
-    /*
-     * FixedUpdate currently holds the 
-     * 
-     * */
     void FixedUpdate()
     {
-        _fire_cooldown += Time.deltaTime;
         DetermineTarget();
 
         if (TargetInRange())
         {
-            transform.rotation = FaceObject(transform.position, target.transform.position);
+            FaceTarget();
             if (isMoving)
                 stopMoving();
 
@@ -106,11 +98,11 @@ public class Unit : MonoBehaviour
     {
         if (target == null || targetingHQ)
         {
-            foreach (GameObject enemy in _enemyTeam)
+            foreach (GameObject enemy in _enemyTeam) //TODO swap _range with _sight_radius
             {
-                if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) <= _range)
+                if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) <= UnitStats.sight_radius)
                 {
-                    target = enemy; //Instance or reference?
+                    target = enemy;
                     targetingHQ = false;
                     return;
                 }
@@ -122,22 +114,23 @@ public class Unit : MonoBehaviour
 
     }
 
-    /*
-     * Perhaps I can test if this unit is flying or not, and just set the colliders accordingly
-     * 
-     * */
+ 
+    /// <summary>
+    /// Moves this object towards the target member, using Addforce.
+    /// Velocity is clamped at _speed
+    /// </summary>
     private void moveTowardsTarget()
     {
         isMoving = true;
-        transform.rotation = FaceObject(transform.position, target.transform.position);
+        FaceTarget();
         if (_rb.velocity.magnitude < _speed)
             _rb.AddRelativeForce(new Vector2(_speed, 0));  //In the future, to account for mass, this might be _speed*mass
     }
 
 
-    /*
-    * Will create a bullet object and fire it towards the target's position
-    */
+    /// <summary>
+    /// Does damage its target; damage delay is relative to target distance
+    /// </summary>
     private void fireTowardsTarget()
     {
         if (_fire_cooldown > _attack_speed)
@@ -145,6 +138,9 @@ public class Unit : MonoBehaviour
             GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
             newBullet.GetComponent<MoveBullet>()._team = _team;
             _fire_cooldown = 0;
+
+            float dist = Vector2.Distance(transform.position, target.transform.position);
+
         }
     }
 
@@ -159,21 +155,30 @@ public class Unit : MonoBehaviour
         
     }
 
+    // ---- CORE FUNCTIONS ----
+
     /// <summary>
     /// Returns a Quaternion with startingPosition as the origin, facing towards the target position
     /// </summary>
     /// <param name="startingPosition">The origin</param>
     /// <param name="targetPosition">The target coord</param>
     /// <returns></returns>
+    /*
     public Quaternion FaceObject(Vector2 startingPosition, Vector2 targetPosition)
     {
         Vector2 direction = targetPosition - startingPosition;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         return Quaternion.AngleAxis(angle, Vector3.forward);
     }
+    */
 
-    
-    // ---- LESS IMPORTANT FUNCTIONS ----
+    private void FaceTarget()
+    {
+        Vector2 direction = target.transform.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
 
     /// <summary>
     /// Called when health is less than zero
@@ -199,28 +204,27 @@ public class Unit : MonoBehaviour
 
     private IEnumerator pulseRed()
     {
-        /*
-        for(int i = 255; i > 0; i -= 5){
-            GetComponent<SpriteRenderer>().color = new Color(i, 0, 0);
-            yield return null;
-        }*/
-        print("Current Color: " + GetComponent<SpriteRenderer>().color);
         float red = 0.5f;
         GetComponent<SpriteRenderer>().color = new Color(red, 1, 1);
         yield return new WaitForSeconds(.1f);
         while(red < 1.0f)
         {
             GetComponent<SpriteRenderer>().color = new Color(red, 1, 1);
-            red += 0.02f;
-            yield return null;
+            red += 0.02f; //this affects the pulse speed
         }
+    }
+
+    public IEnumerator lerpProjectile(Vector2 start, Vector2 end)
+    {
+        yield return null;
     }
 
     private void stopMoving()
     {
-        //_cf.relativeForce = Vector2.zero;
         _rb.velocity = Vector2.zero;
         isMoving = false;
     }
+
+
 
 }
