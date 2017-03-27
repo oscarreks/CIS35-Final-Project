@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour{
     public GameObject[] prefabs = new GameObject[2];
     public List<GameObject> team1 = new List<GameObject>();
     public List<GameObject> team2 = new List<GameObject>();
+    public List<HoldDragPlaceUnit> deck1 = new List<HoldDragPlaceUnit>();
+    public List<HoldDragPlaceUnit> deck2 = new List<HoldDragPlaceUnit>();
     public GameObject HQ1;
     public GameObject HQ2;
     public GameObject prefab;
@@ -48,8 +50,21 @@ public class GameManager : MonoBehaviour{
         if (mana_rate_cooldown > mana_rate)
         {
             mana_rate_cooldown = 0;
-            if (mana[0] < 10) { mana[0]++; }
-            if (mana[1] < 10) { mana[1]++; }
+            if (mana[0] < 10)
+            {
+                mana[0]++;
+                foreach( HoldDragPlaceUnit card in deck1)
+                {
+                    card.manaUpdate();
+                }
+            }
+            if (mana[1] < 10) {
+                mana[1]++;
+                foreach (HoldDragPlaceUnit card in deck2)
+                {
+                    card.manaUpdate();
+                }
+            }
             print("RED MANA: " + mana[0] + " - GREEN MANA: " + mana[1]);
         }
 
@@ -79,6 +94,12 @@ public class GameManager : MonoBehaviour{
 
             spawn(TEAM.GREEN, UNIT_NAME.MTANK, ray.origin);
         }
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(0, 0, 100, 100), "Red's Mana: " + mana[0]);
+        GUI.Label(new Rect(0, 20, 100, 100), "Green's Mana: " + mana[1]);
     }
 
     //To generate starting troops

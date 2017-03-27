@@ -224,6 +224,10 @@ MonoBehaviour:
   - {fileID: 1221046415578396, guid: 5b06b984189da2445b2cc858c94b1c7b, type: 2}
   team1: []
   team2: []
+  deck1:
+  - {fileID: 180623333}
+  deck2:
+  - {fileID: 205395286}
   HQ1: {fileID: 194631636}
   HQ2: {fileID: 483787170}
   prefab: {fileID: 1276498733352212, guid: 2a84c962f95e5e641adf24b4741f4be0, type: 2}
@@ -243,6 +247,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &180623333 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114820508390459258, guid: f4a8674fb3d722944ab7e540b47bc2f8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1071577741}
+  m_Script: {fileID: 11500000, guid: 0dbc29fa54177844e8ceb97634fbb6ef, type: 3}
 --- !u!1 &194631636
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +353,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &205395286 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114136898572125108, guid: 1e5a35e4a789f1343b06fe4143a4f69f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1320043308}
+  m_Script: {fileID: 11500000, guid: 0dbc29fa54177844e8ceb97634fbb6ef, type: 3}
 --- !u!1 &227411676
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,40 +688,44 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.98
+      value: 1.42
       objectReference: {fileID: 0}
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.06
+      value: 10.63
       objectReference: {fileID: 0}
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 89.9368
+      value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+    - target: {fileID: 4532657039408966, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1313263375492002, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
+      propertyPath: m_Name
+      value: RedTANKCard
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: f4a8674fb3d722944ab7e540b47bc2f8, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1082082368
 GameObject:
@@ -910,11 +930,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 21.14
+      value: 20.19
       objectReference: {fileID: 0}
     - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.77
       objectReference: {fileID: 0}
     - target: {fileID: 4173748365703124, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -954,7 +974,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1831264538000716, guid: 1e5a35e4a789f1343b06fe4143a4f69f, type: 2}
       propertyPath: m_Name
-      value: SpawnButton (1)
+      value: GreenMTANKcard
       objectReference: {fileID: 0}
     - target: {fileID: 114136898572125108, guid: 1e5a35e4a789f1343b06fe4143a4f69f,
         type: 2}

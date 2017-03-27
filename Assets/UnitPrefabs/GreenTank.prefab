@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4621694133102832}
   - component: {fileID: 212322203406179046}
-  - component: {fileID: 114149342388824346}
+  - component: {fileID: 114425368364172382}
   - component: {fileID: 61431800612930486}
   - component: {fileID: 50915306865824252}
   - component: {fileID: 58917951403901270}
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1221046415578396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 9.505, y: 2.619, z: -2}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,9 +75,9 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: 44180e8aedb7d304d970c815f7ea130c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.07}
   serializedVersion: 2
-  m_Radius: 0.305
+  m_Radius: 0.23
 --- !u!61 &61431800612930486
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -92,7 +92,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -0.07633221}
   serializedVersion: 2
   m_Size: {x: 0.48, y: 0.4573356}
---- !u!114 &114149342388824346
+--- !u!114 &114425368364172382
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1221046415578396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4365e6e176ef7a4cbc45f0f1efd663b, type: 3}
+  m_Script: {fileID: 11500000, guid: d685ec05ab2308642a7eb32e48446a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 1
@@ -116,6 +116,7 @@ MonoBehaviour:
   _fire_cooldown: 0
   bullet_prefab: {fileID: 1953314100899828, guid: 36f2d2ffa9041d14285ce00b818a3386,
     type: 2}
+  next_node: 0
 --- !u!212 &212322203406179046
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,7 +9,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     private int _cost;
 
-    bool enoughMana = false;
+    public bool enoughMana;
     SpriteRenderer _draggedObject;
     public float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
 
@@ -24,6 +24,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         _draggedObject.transform.localScale = new Vector3(2, 2, 2);
 
         _cost = UnitStats.index[(int)_name].cost;
+        enoughMana = GameManager.instance.mana[(int)_team] >= _cost;
 
         _top_bounds = 12;
         _bot_bounds = 0;
@@ -39,6 +40,18 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         }
     }
 
+    public void manaUpdate()
+    {
+        print("MANA UPDATED");
+        enoughMana = GameManager.instance.mana[(int)_team] >= _cost;
+        if (enoughMana)
+        {
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }else
+        {
+            GetComponent<SpriteRenderer>().color = Color.gray;
+        }
+    }
 
     bool hasInput()
     {
@@ -55,10 +68,8 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     void OnMouseDown()
     {
-        print("TOUCHED ME");
-        if (GameManager.instance.mana[(int)_team] >= _cost)
+        if (enoughMana)
         {
-            enoughMana = true;
             _draggedObject.enabled = true;
         }
     }
@@ -67,12 +78,11 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     {
         if (enoughMana)
         {
-            if (validPlacement())
-            {
-                float x = Mathf.CeilToInt(CurrentTouchPosition.x) - 0.5f;
-                float y = Mathf.CeilToInt(CurrentTouchPosition.y) - 0.5f;
-                _draggedObject.transform.position = new Vector2(x, y);
-            }
+
+            float x = Mathf.Clamp(Mathf.CeilToInt(CurrentTouchPosition.x), _left_bounds + 1, _right_bounds) - 0.5f;
+            float y = Mathf.Clamp(Mathf.CeilToInt(CurrentTouchPosition.y), _bot_bounds + 1, _top_bounds) - 0.5f;
+            _draggedObject.transform.position = new Vector2(x, y);
+            
         }
     }
 
@@ -110,6 +120,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         _draggedObject.transform.position = transform.position;
         GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
         GameManager.instance.mana[(int)_team] -= _cost;
+        manaUpdate();
     }
 
 }

@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 ///TODO - Cut down this class to the core, move the rest to specialized extensions 
 /// KEEP - addHealth, DetermineTarget, FaceObject, pulseRed, startDeath, stopMoving
-/// MOVE - moveTowardsToarget, lerpProjectile, targetInRange
+/// MOVE - moveTowardsTarget, lerpProjectile, targetInRange
 
-public class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
 
     public UNIT_NAME _name;
@@ -21,12 +21,12 @@ public class Unit : MonoBehaviour
     public float _fire_cooldown;
     public GameObject bullet_prefab;
 
-    private List<GameObject> _enemyTeam;
-    private GameObject _enemyHQ;
-    private Rigidbody2D _rb;
+    protected List<GameObject> _enemyTeam;
+    protected GameObject _enemyHQ;
+    protected Rigidbody2D _rb;
 
     private bool targetingHQ;
-    private bool isMoving;
+    protected bool isMoving;
 
 
     void Start()
@@ -52,8 +52,8 @@ public class Unit : MonoBehaviour
             _enemyHQ = GameManager.instance.HQ1;
         }
 
-        target = _enemyHQ;
-        targetingHQ = true;
+        //target = _enemyHQ;
+        //targetingHQ = true;
         isMoving = true; //A bit misleading; it means addForce() is not being called
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
@@ -64,9 +64,14 @@ public class Unit : MonoBehaviour
         _fire_cooldown += Time.deltaTime;
     }
 
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(transform.position.x, Screen.height - transform.position.y, 100, 100), "" + _health);
+    }
+
     void FixedUpdate()
     {
-        DetermineTarget();
+        DetermineTarget();          //virtual
 
         if (TargetInRange())
         {
@@ -74,16 +79,16 @@ public class Unit : MonoBehaviour
             if (isMoving)
                 stopMoving();
 
-            fireTowardsTarget();
+            damageTarget();         //abstract
         }
         else
         {
-            moveTowardsTarget();
+            moveTowardsTarget();    //abstract
         }
 
         if (_health < 0)
         {
-            startDeath();
+            Destroy(gameObject);    //maybe virtual
         }
     }
 
@@ -91,67 +96,14 @@ public class Unit : MonoBehaviour
 
     // ---- MOVING AND TARGETING FUNCTIONS ----
 
-    /*
-        If no targets are within range, it will set target to closest tower
-    */
-    private void DetermineTarget()
-    {
-        if (target == null || targetingHQ)
-        {
-            foreach (GameObject enemy in _enemyTeam) //TODO swap _range with _sight_radius
-            {
-                if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) <= UnitStats.sight_radius)
-                {
-                    target = enemy;
-                    targetingHQ = false;
-                    return;
-                }
-            }
-
-            target = _enemyHQ;
-            targetingHQ = true;
-        }
-
-    }
-
- 
     /// <summary>
-    /// Moves this object towards the target member, using Addforce.
-    /// Velocity is clamped at _speed
+    /// Returns true if target position is within range, defined by _range
     /// </summary>
-    private void moveTowardsTarget()
+    /// <returns>true if its da true true</returns>
+    protected bool TargetInRange()
     {
-        isMoving = true;
-        FaceTarget();
-        if (_rb.velocity.magnitude < _speed)
-            _rb.AddRelativeForce(new Vector2(_speed, 0));  //In the future, to account for mass, this might be _speed*mass
-    }
-
-
-    /// <summary>
-    /// Does damage its target; damage delay is relative to target distance
-    /// </summary>
-    private void fireTowardsTarget()
-    {
-        if (_fire_cooldown > _attack_speed)
-        {
-            GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
-            newBullet.GetComponent<MoveBullet>()._team = _team;
-            _fire_cooldown = 0;
-
-            float dist = Vector2.Distance(transform.position, target.transform.position);
-
-        }
-    }
-
-    /* 
-     * DetermineTarget() should make sure "target" always exists;
-     * Will take the unit's "weapon" range, and initiate fire
-     * 
-     */
-    private bool TargetInRange()
-    {
-        return Vector2.Distance(transform.position, target.transform.position) < _range;
+        if(target == null) { return false; }
+        return Vector2.Distance(transform.position, target_coords) < _range;
         
     }
 
@@ -160,22 +112,14 @@ public class Unit : MonoBehaviour
     /// <summary>
     /// Faces this object towards the target mem
     /// </summary>
-    private void FaceTarget()
+    protected void FaceTarget()
     {
-        Vector2 direction = target.transform.position - transform.position;
+        if (target) { target_coords = target.transform.position; }
+        Vector2 direction = target_coords - (Vector2)transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-
-    /// <summary>
-    /// Called when health is less than zero
-    /// </summary>
-    private void startDeath()
-    {
-        //Call on Destroy(), update the GameManager's arrays.
-        Destroy(gameObject);
-    }
 
     /// <summary>
     /// Adds health to local health. Use a negative float to take away health
@@ -184,8 +128,7 @@ public class Unit : MonoBehaviour
     public void addHealth(float health)
     {
         _health += health;
-        print("IVE BEEN HIT");
-        
+
         StopCoroutine(pulseRed());
         StartCoroutine(pulseRed());
     }
@@ -213,6 +156,43 @@ public class Unit : MonoBehaviour
         isMoving = false;
     }
 
+
+
+    // ---- VIRTUAL FUNCTIONS ----
+
+    /// <summary>
+    /// Apply damage to target
+    /// </summary>
+    protected abstract void damageTarget();
+
+    /// <summary>
+    /// Moves this object towards the target position, using Addforce.
+    /// Velocity is clamped at _speed
+    /// </summary>
+    protected abstract void moveTowardsTarget();
+
+    /// <summary>
+    /// Determines if last target is gone, or if certain things can be targeted
+    /// </summary>
+    protected virtual void DetermineTarget()
+    {
+        if (target == null || targetingHQ)
+        {
+            foreach (GameObject enemy in _enemyTeam) //TODO swap _range with _sight_radius
+            {
+                if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) <= UnitStats.sight_radius)
+                {
+                    target = enemy;
+                    targetingHQ = false;
+                    return;
+                }
+            }
+
+            target = _enemyHQ;
+            targetingHQ = true;
+        }
+
+    }
 
 
 }

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4699290699370766}
   - component: {fileID: 212514764593270032}
-  - component: {fileID: 114163002750165604}
+  - component: {fileID: 114912953239203328}
   - component: {fileID: 61064840282661894}
   - component: {fileID: 50811868664980394}
   - component: {fileID: 58828080827394128}
@@ -63,7 +63,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58828080827394128
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -92,7 +92,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -0.038166165}
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.41366768}
---- !u!114 &114163002750165604
+--- !u!114 &114912953239203328
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1276498733352212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4365e6e176ef7a4cbc45f0f1efd663b, type: 3}
+  m_Script: {fileID: 11500000, guid: d685ec05ab2308642a7eb32e48446a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _name: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   _fire_cooldown: 0
   bullet_prefab: {fileID: 1953314100899828, guid: 36f2d2ffa9041d14285ce00b818a3386,
     type: 2}
+  next_node: 0
 --- !u!212 &212514764593270032
 SpriteRenderer:
   m_ObjectHideFlags: 1
