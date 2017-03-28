@@ -16,6 +16,7 @@ Status: early prototype
 - Actual animation
 - Sound
 - More UI
+- Start Screen
 
 ![red][redtank] *sprites are currently borrowed from Advance Wars*
 
