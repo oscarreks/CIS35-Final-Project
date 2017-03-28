@@ -28,6 +28,10 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-/Assets/Sprites/AWTilesetTransparent.psd
-/Assets/Sprites/map1_water.tmx
-/Assets/Sprites/map1_water.tmx.meta
+
+#Graphic Assets
+*.psd
+*.psd.meta
+*.tmx
+*.tmx.meta
+
