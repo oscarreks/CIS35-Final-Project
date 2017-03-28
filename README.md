@@ -11,7 +11,7 @@ Status: early prototype
 
 - Tony toscarreks@gmail.com -  Coding and Art
 
-###Planned Features:
+### Planned Features:
 - Paths using nodes (or maybe just math)
 - Actual animation
 - Sound
