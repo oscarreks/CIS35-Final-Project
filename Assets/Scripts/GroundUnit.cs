@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,25 +7,82 @@ public struct node
 {
     public Vector2 position;
     public float distToEnd;
+    //public int[] neighbors;
 
     public node(Vector2 p, float d)
     {
         position = p;
         distToEnd = d;
+        //neighbors = n;
     }
 }
 
 public class GroundUnit : Unit {
 
     public int next_node;
+    public int side_index = 1;
+    public Vector2[][] path;
 
-    node[] path =
+    /*
+    static int[][] adj_ltr = new int[][]
     {
-        new node(new Vector2(9.5f, 9.5f), 100),
-        new node(new Vector2(9.5f, 2.5f), 150),
-        new node(new Vector2(19.5f, 2.5f), 50),
-        new node(new Vector2(19.5f, 9.5f), 0)
+        new int[] { 0, -1, -1, 10 },
+        new int[] { -1, 0, 10, -1 },
+        new int[] { -1, 10, 0, 7 },
+        new int[] { 10, -1, 7, 0 }
     };
+    */
+
+    static Vector2[][] path_rightwards = new Vector2[][]
+    {
+        new Vector2[]
+        {
+            new Vector2(9.5f, 9.5f),
+            new Vector2(19.5f, 9.5f),
+            new Vector2(19.5f, 6)
+        },
+        new Vector2[]
+        {
+            new Vector2(9.5f, 2.5f),
+            new Vector2(19.5f, 2.5f),
+            new Vector2(19.5f, 6)
+        }
+    };
+
+    static Vector2[][] path_leftwards = new Vector2[][]
+    {
+        new Vector2[]
+        {
+            new Vector2(12.5f, 9.5f),
+            new Vector2(2.5f, 9.5f),
+            new Vector2(2.5f, 6)
+        },
+        new Vector2[]
+        {
+            new Vector2(12.5f, 2.5f),
+            new Vector2(2.5f, 2.5f),
+            new Vector2(2.5f, 6)
+        }
+
+    };
+
+
+    protected override void SetPath()
+    {
+        if(_team == TEAM.RED)
+        {
+            path = path_rightwards;
+        }
+        else
+        {
+            path = path_leftwards;
+        }
+
+        if(transform.position.y > 6)
+        {
+            side_index = 0;
+        }
+    }
 
     /// <summary>
     /// Does damage its target; damage delay is relative to target distance
@@ -71,17 +129,50 @@ public class GroundUnit : Unit {
                 }
             }
             //Assuming we've reached this point, no enemies are within sight_radius
-            target_coords = path[next_node].position;
+            target_coords = path[side_index][next_node];
         }
 
     }
 
     //prototype
+    //Eventually want to be able to find fastest path to end target
     private void checkNode()
     {
-        if(Vector2.Distance(transform.position, path[next_node].position) < 0.5f && next_node < path.Length)
+        if(transform.position.y > 6) // top
+        {
+            side_index = 0;
+        }
+        else
+        {
+            side_index = 1;
+        }
+
+        if(Vector2.Distance(transform.position, path[side_index][next_node]) < 0.5f && next_node < path.Length)
         {
             next_node++;
         }
+        
     }
+
+    /*
+    private void Astar()
+    {
+        int goal = 3;
+        SimplePriorityQueue<node, float> PQ = new SimplePriorityQueue<node, float>(); //create new pq
+        PQ.Enqueue(new node(transform.position, 1000), 0);
+        int[] came_from = new int[5];
+        int[] cost_so_far = new int[5];
+        came_from[4] = 4;
+        cost_so_far[4] = 0;
+
+        while( PQ.Count != 0)
+        {
+            node current = PQ.Dequeue();
+            if (current.position == path[goal].position) { return; }
+
+            
+        }
+        
+    }
+    */
 }

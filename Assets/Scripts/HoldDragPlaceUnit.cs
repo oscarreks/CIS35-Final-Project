@@ -42,7 +42,6 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     public void manaUpdate()
     {
-        print("MANA UPDATED");
         enoughMana = GameManager.instance.mana[(int)_team] >= _cost;
         if (enoughMana)
         {

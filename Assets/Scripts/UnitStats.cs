@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UNIT_NAME { TANK, MTANK, SOLDIER }
+public enum UNIT_NAME { TANK, MTANK, SOLDIER, BUILDING }
 public enum TEAM { RED, GREEN }
 
 public struct Stats
@@ -27,8 +27,9 @@ public static class UnitStats {
 
     public static Stats[] index =
     {
-        new Stats(10, 45, 1, 4, 2, 1),      //TANK
-        new Stats(10, 65, 0.5f, 5, 2, 1.5f),   //MTANK
-        new Stats(4, 25, 2, 2, 3, 2)        //SOLDIER
+        new Stats(10, 45, 1, 4, 2, 1),          //TANK
+        new Stats(10, 65, 0.5f, 5, 2, 1.5f),    //MTANK
+        new Stats(4, 25, 2, 2, 3, 2),           //SOLDIER
+        new Stats(0, 100, 0, 4, 0, 1)           //BUILDING
     };
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Unit is the base class for the game units, but does not handle movment or attacking.
 /// </summary>
-///TODO - Cut down this class to the core, move the rest to specialized extensions 
+/// TODO - Cut down this class to the core, move the rest to specialized extensions 
 /// KEEP - addHealth, DetermineTarget, FaceObject, pulseRed, startDeath, stopMoving
 /// MOVE - moveTowardsTarget, lerpProjectile, targetInRange
 
@@ -31,7 +31,6 @@ public abstract class Unit : MonoBehaviour
 
     void Start()
     {
-
         //TODO move all this to an init loop inside GameManager
         _attack = UnitStats.index[(int)_name].attack;
         _health = UnitStats.index[(int)_name].health;
@@ -39,6 +38,7 @@ public abstract class Unit : MonoBehaviour
         _cost = UnitStats.index[(int)_name].cost;
         _range = UnitStats.index[(int)_name].range;
         _attack_speed = UnitStats.index[(int)_name].attack_speed;
+        print("INITIALIZED!");
 
         if (_team == TEAM.RED)
         {
@@ -55,8 +55,11 @@ public abstract class Unit : MonoBehaviour
         //target = _enemyHQ;
         //targetingHQ = true;
         isMoving = true; //A bit misleading; it means addForce() is not being called
+        SetPath();      //Set up path for unit type
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
+
+        print("IS START WORKING?");
     }
 
     void Update()
@@ -158,7 +161,15 @@ public abstract class Unit : MonoBehaviour
 
 
 
-    // ---- VIRTUAL FUNCTIONS ----
+    // ---- VIRTUAL & ABSTRACT FUNCTIONS ----
+
+    /// <summary>
+    /// Called in Start(), should be overridden to allow proper pathing
+    /// </summary>
+    protected virtual void SetPath()
+    {
+        print("DEFAULT SETPATH TRIGGERED");
+    }
 
     /// <summary>
     /// Apply damage to target
