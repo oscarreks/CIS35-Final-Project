@@ -24,7 +24,8 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         _draggedObject.transform.localScale = new Vector3(2, 2, 2);
 
         _cost = UnitStats.index[(int)_name].cost;
-        enoughMana = GameManager.instance.mana[(int)_team] >= _cost;
+
+        manaUpdate();
 
         _top_bounds = 12;
         _bot_bounds = 0;
@@ -52,10 +53,6 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         }
     }
 
-    bool hasInput()
-    {
-        return Input.GetMouseButton(0);
-    }
 
     Vector2 CurrentTouchPosition
     {
@@ -93,11 +90,10 @@ public class HoldDragPlaceUnit : MonoBehaviour {
             {
                 enoughMana = false;
                 spawnUnit();
-            }else
-            {
-                _draggedObject.enabled = false;
-                _draggedObject.transform.position = transform.position;
             }
+
+            _draggedObject.enabled = false;
+            _draggedObject.transform.position = transform.position;
         }
     }
 
@@ -115,8 +111,6 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     private void spawnUnit()
     {
-        _draggedObject.enabled = false;
-        _draggedObject.transform.position = transform.position;
         GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
         GameManager.instance.mana[(int)_team] -= _cost;
         manaUpdate();

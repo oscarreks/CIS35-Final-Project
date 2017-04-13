@@ -1016,11 +1016,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef80e649c2b5304fba855de4c13e12b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curMana: 50
-  maxMana: 50
-  maxPixelWidth: 1000
+  maxMana: 10
+  maxPixelWidth: 100
+  bar_height: 16
   _team: 0
-  ManaBarTexture: {fileID: 2800000, guid: 56ba7c25829b687479b3cc3b0474ab0a, type: 3}
+  ManaBarTexture: {fileID: 2800000, guid: 8657ffb36cf39c44cb24da8817603eed, type: 3}
+  EmptyBarTexture: {fileID: 2800000, guid: 9696182297c29de42946a12d4fedec2a, type: 3}
   x: 32
   y: 10
 --- !u!4 &1588262100
@@ -1063,11 +1064,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef80e649c2b5304fba855de4c13e12b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curMana: 50
-  maxMana: 50
-  maxPixelWidth: 1000
+  maxMana: 10
+  maxPixelWidth: 100
+  bar_height: 16
   _team: 1
-  ManaBarTexture: {fileID: 2800000, guid: 56ba7c25829b687479b3cc3b0474ab0a, type: 3}
+  ManaBarTexture: {fileID: 2800000, guid: 8657ffb36cf39c44cb24da8817603eed, type: 3}
+  EmptyBarTexture: {fileID: 2800000, guid: 9696182297c29de42946a12d4fedec2a, type: 3}
   x: 410
   y: 10
 --- !u!4 &1965020088

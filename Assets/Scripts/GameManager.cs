@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour{
                     card.manaUpdate();
                 }
             }
-            print("RED MANA: " + mana[0] + " - GREEN MANA: " + mana[1]);
         }
 
         //testSpawning();

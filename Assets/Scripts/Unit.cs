@@ -38,7 +38,6 @@ public abstract class Unit : MonoBehaviour
         _cost = UnitStats.index[(int)_name].cost;
         _range = UnitStats.index[(int)_name].range;
         _attack_speed = UnitStats.index[(int)_name].attack_speed;
-        print("INITIALIZED!");
 
         if (_team == TEAM.RED)
         {
@@ -58,8 +57,6 @@ public abstract class Unit : MonoBehaviour
         SetPath();      //Set up path for unit type
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
-
-        print("IS START WORKING?");
     }
 
     void Update()

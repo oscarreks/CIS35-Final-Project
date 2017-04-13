@@ -16,27 +16,27 @@ public class HealthBar : MonoBehaviour {
     public float y_offset = -24;
     public Vector2 bar_position;
 
-    Unit u;
+    Unit parent;
     float healthBarLength;
     float healthPercentage;
 
     void Start()
     {
-        u = GetComponent<Unit>();
-        if(u == null)
+        parent = GetComponent<Unit>();
+        if(parent == null)
         {
             print("Componenet UNIT not found");
         }
         else
         {
-            maxHealth = u._health;
+            maxHealth = parent._health;
             x_offset = maxPixelWidth / 2;
         }
     }
 
     void Update()
     {
-        healthPercentage = u._health / maxHealth;
+        healthPercentage = parent._health / maxHealth;
         healthBarLength = healthPercentage * maxPixelWidth;
         bar_position = Camera.main.WorldToScreenPoint(transform.position);
 
