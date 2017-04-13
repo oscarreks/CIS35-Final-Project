@@ -30,25 +30,5 @@ public class ManaBarManager : MonoBehaviour
 
         manaPercentage = GameManager.instance.mana[(int)_team] / maxMana;
         manaBarLength = manaPercentage * maxPixelWidth;
-
-        test_bar();
-    }
-
-    void test_bar()
-    {
-        if (Input.GetKeyDown("m"))
-        {
-            curMana -= 10.0f;
-        }
-
-        if (Input.GetKeyDown("n"))
-        {
-            curMana += 10;
-        }
-
-        if (Input.GetKeyDown("s"))
-        {
-            transform.position -= new Vector3(0, 2, 0);
-        }
     }
 }

@@ -4,25 +4,49 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour {
 
-    public SpriteRenderer bar;
-    public Sprite health_sprite;
-    public float max_length = 2.0f;
+    public float maxHealth;
+    public float maxPixelWidth = 32;
+    public float pixelHeight = 6;
 
-	// Use this for initialization
-	void Start () {
-        bar = gameObject.AddComponent<SpriteRenderer>();
-        bar.sprite = health_sprite;
-        transform.localScale = new Vector3(max_length, 0.3f, 1.0f);
-    }
-	
-	public float health
+    public Texture2D HealthBarTexture;
+
+    public float x;
+    public float y;
+    public float x_offset;
+    public float y_offset = -24;
+    public Vector2 bar_position;
+
+    Unit u;
+    float healthBarLength;
+    float healthPercentage;
+
+    void Start()
     {
-        set
+        u = GetComponent<Unit>();
+        if(u == null)
         {
-            //value passed in should be between 0.0 and 1.0
-            float new_length = value * max_length;
-            transform.position = new Vector3(max_length - value, 0, 0);
-            transform.localScale = new Vector3(new_length, 0.3f, 1.0f);
+            print("Componenet UNIT not found");
         }
+        else
+        {
+            maxHealth = u._health;
+            x_offset = maxPixelWidth / 2;
+        }
+    }
+
+    void Update()
+    {
+        healthPercentage = u._health / maxHealth;
+        healthBarLength = healthPercentage * maxPixelWidth;
+        bar_position = Camera.main.WorldToScreenPoint(transform.position);
+
+        x = bar_position.x - x_offset;
+        y = Camera.main.pixelHeight - bar_position.y + y_offset;
+        
+    }
+
+    void OnGUI()
+    {
+        GUI.DrawTexture(new Rect(x, y, healthBarLength, pixelHeight), HealthBarTexture);
     }
 }

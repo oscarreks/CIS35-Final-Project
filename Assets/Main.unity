@@ -720,6 +720,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 61463945505352170, guid: bb8325a8a9d02c14f9f857d41d6d6a19,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: -0.053132117
+      objectReference: {fileID: 0}
+    - target: {fileID: 61463945505352170, guid: bb8325a8a9d02c14f9f857d41d6d6a19,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.6737356
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb8325a8a9d02c14f9f857d41d6d6a19, type: 2}
   m_IsPrefabParent: 0
@@ -956,6 +966,120 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 61992579308088002, guid: 0b724ff4386de5b449a8a5915082d6ee,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: -0.05610752
+      objectReference: {fileID: 0}
+    - target: {fileID: 61992579308088002, guid: 0b724ff4386de5b449a8a5915082d6ee,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.6769197
+      objectReference: {fileID: 0}
+    - target: {fileID: 61992579308088002, guid: 0b724ff4386de5b449a8a5915082d6ee,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -0.03576833
+      objectReference: {fileID: 0}
+    - target: {fileID: 61992579308088002, guid: 0b724ff4386de5b449a8a5915082d6ee,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.8463439
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b724ff4386de5b449a8a5915082d6ee, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1588262098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1588262100}
+  - component: {fileID: 1588262099}
+  m_Layer: 0
+  m_Name: ManaBar Red
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1588262099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588262098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef80e649c2b5304fba855de4c13e12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curMana: 50
+  maxMana: 50
+  maxPixelWidth: 1000
+  _team: 0
+  ManaBarTexture: {fileID: 2800000, guid: 56ba7c25829b687479b3cc3b0474ab0a, type: 3}
+  x: 32
+  y: 10
+--- !u!4 &1588262100
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588262098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.6586685, y: 6.4930325, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1965020086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1965020088}
+  - component: {fileID: 1965020087}
+  m_Layer: 0
+  m_Name: ManaBar Green
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1965020087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1965020086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef80e649c2b5304fba855de4c13e12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curMana: 50
+  maxMana: 50
+  maxPixelWidth: 1000
+  _team: 1
+  ManaBarTexture: {fileID: 2800000, guid: 56ba7c25829b687479b3cc3b0474ab0a, type: 3}
+  x: 410
+  y: 10
+--- !u!4 &1965020088
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1965020086}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.6586685, y: 6.4930325, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
