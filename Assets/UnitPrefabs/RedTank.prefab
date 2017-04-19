@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50811868664980394}
   - component: {fileID: 58828080827394128}
   - component: {fileID: 114896624447055810}
+  - component: {fileID: 82902951094280234}
   m_Layer: 0
   m_Name: RedTank
   m_TagString: Untagged
@@ -93,6 +94,86 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -0.038166165}
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.41366768}
+--- !u!82 &82902951094280234
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276498733352212}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114896624447055810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +218,9 @@ MonoBehaviour:
   _fire_cooldown: 0
   bullet_prefab: {fileID: 1953314100899828, guid: 36f2d2ffa9041d14285ce00b818a3386,
     type: 2}
+  damage_sound: {fileID: 8300000, guid: 3169ecdcef1d6a94d854ed8ee7d94aa6, type: 3}
+  firing_sound: {fileID: 8300000, guid: d210f90a1ea704342bb272645a701fb0, type: 3}
+  audio_source: {fileID: 82902951094280234}
   next_node: 0
   side_index: 1
 --- !u!212 &212514764593270032

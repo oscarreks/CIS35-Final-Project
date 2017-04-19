@@ -12,6 +12,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     public bool enoughMana;
     SpriteRenderer _draggedObject;
     public float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
+    public AudioClip spawn_sound;
 
     void Start()
     {
@@ -111,6 +112,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     private void spawnUnit()
     {
+        SoundManager.instance.Play(spawn_sound);
         GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
         GameManager.instance.mana[(int)_team] -= _cost;
         manaUpdate();

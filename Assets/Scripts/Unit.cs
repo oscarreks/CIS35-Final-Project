@@ -21,6 +21,11 @@ public abstract class Unit : MonoBehaviour
     public float _fire_cooldown;
     public GameObject bullet_prefab;
 
+    //ROUGH AUDIO IMPLEMENTATION
+    public AudioClip damage_sound;
+    public AudioClip firing_sound;
+    public AudioSource audio_source;
+
     protected List<GameObject> _enemyTeam;
     protected GameObject _enemyHQ;
     protected Rigidbody2D _rb;
@@ -57,6 +62,7 @@ public abstract class Unit : MonoBehaviour
         SetPath();      //Set up path for unit type
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
+        audio_source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -131,6 +137,9 @@ public abstract class Unit : MonoBehaviour
 
         StopCoroutine(pulseRed());
         StartCoroutine(pulseRed());
+
+        //V------------------------and dis is where I play the sounds for now
+        SoundManager.instance.Play(damage_sound);
     }
 
     private IEnumerator pulseRed()

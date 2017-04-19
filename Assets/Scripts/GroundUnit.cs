@@ -96,6 +96,9 @@ public class GroundUnit : Unit {
             newBullet.GetComponent<MoveBullet>()._team = _team;
             _fire_cooldown = 0;
 
+            //OSCAR's SUPER ELEGANT AUDIO CODE
+            SoundManager.instance.Play(firing_sound);
+
             //float dist = Vector2.Distance(transform.position, target.transform.position);
 
         }
