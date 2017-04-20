@@ -11,11 +11,12 @@ Status: early prototype
 
 - Tony toscarreks@gmail.com -  Coding and Art
 
-###Planned Features:
+### Planned Features:
 - Paths using nodes (or maybe just math)
 - Actual animation
 - Sound
 - More UI
+- Start Screen
 
 ![red][redtank] *sprites are currently borrowed from Advance Wars*
 

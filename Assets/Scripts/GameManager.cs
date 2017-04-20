@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour{
     {
         //prefabs = Resources.LoadAll("UnitPrefabs") as GameObject[];
         Physics2D.gravity = Vector2.zero;
-        SetupField();
+        //SetupFieldTest();
 
         mana = new int[2];
         mana[0] = mana[1] = 3;
@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour{
                     card.manaUpdate();
                 }
             }
-            print("RED MANA: " + mana[0] + " - GREEN MANA: " + mana[1]);
         }
 
         //testSpawning();
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviour{
     }
 
     //To generate starting troops
-    private void SetupField()
+    private void SetupFieldTest()
     {
         spawn(TEAM.RED, UNIT_NAME.TANK, new Vector2(10, 5));
         spawn(TEAM.GREEN, UNIT_NAME.MTANK, new Vector2(4, 5));

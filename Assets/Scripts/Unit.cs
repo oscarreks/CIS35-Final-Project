@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Unit is the base class for the game units, but does not handle movment or attacking.
 /// </summary>
-///TODO - Cut down this class to the core, move the rest to specialized extensions 
+/// TODO - Cut down this class to the core, move the rest to specialized extensions 
 /// KEEP - addHealth, DetermineTarget, FaceObject, pulseRed, startDeath, stopMoving
 /// MOVE - moveTowardsTarget, lerpProjectile, targetInRange
 
@@ -21,6 +21,11 @@ public abstract class Unit : MonoBehaviour
     public float _fire_cooldown;
     public GameObject bullet_prefab;
 
+    //ROUGH AUDIO IMPLEMENTATION
+    public AudioClip damage_sound;
+    public AudioClip firing_sound;
+    public AudioSource audio_source;
+
     protected List<GameObject> _enemyTeam;
     protected GameObject _enemyHQ;
     protected Rigidbody2D _rb;
@@ -31,7 +36,6 @@ public abstract class Unit : MonoBehaviour
 
     void Start()
     {
-
         //TODO move all this to an init loop inside GameManager
         _attack = UnitStats.index[(int)_name].attack;
         _health = UnitStats.index[(int)_name].health;
@@ -55,8 +59,10 @@ public abstract class Unit : MonoBehaviour
         //target = _enemyHQ;
         //targetingHQ = true;
         isMoving = true; //A bit misleading; it means addForce() is not being called
+        SetPath();      //Set up path for unit type
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
+        audio_source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -131,6 +137,9 @@ public abstract class Unit : MonoBehaviour
 
         StopCoroutine(pulseRed());
         StartCoroutine(pulseRed());
+
+        //V------------------------and dis is where I play the sounds for now
+        SoundManager.instance.Play(damage_sound);
     }
 
     private IEnumerator pulseRed()
@@ -158,7 +167,15 @@ public abstract class Unit : MonoBehaviour
 
 
 
-    // ---- VIRTUAL FUNCTIONS ----
+    // ---- VIRTUAL & ABSTRACT FUNCTIONS ----
+
+    /// <summary>
+    /// Called in Start(), should be overridden to allow proper pathing
+    /// </summary>
+    protected virtual void SetPath()
+    {
+        print("DEFAULT SETPATH TRIGGERED");
+    }
 
     /// <summary>
     /// Apply damage to target

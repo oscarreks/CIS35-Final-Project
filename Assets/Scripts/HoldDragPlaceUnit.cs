@@ -12,6 +12,8 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     public bool enoughMana;
     SpriteRenderer _draggedObject;
     public float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
+    public AudioClip spawn_sound;
+    public AudioClip error_sound;
 
     void Start()
     {
@@ -24,7 +26,8 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         _draggedObject.transform.localScale = new Vector3(2, 2, 2);
 
         _cost = UnitStats.index[(int)_name].cost;
-        enoughMana = GameManager.instance.mana[(int)_team] >= _cost;
+
+        manaUpdate();
 
         _top_bounds = 12;
         _bot_bounds = 0;
@@ -42,7 +45,6 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     public void manaUpdate()
     {
-        print("MANA UPDATED");
         enoughMana = GameManager.instance.mana[(int)_team] >= _cost;
         if (enoughMana)
         {
@@ -53,10 +55,6 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         }
     }
 
-    bool hasInput()
-    {
-        return Input.GetMouseButton(0);
-    }
 
     Vector2 CurrentTouchPosition
     {
@@ -94,11 +92,14 @@ public class HoldDragPlaceUnit : MonoBehaviour {
             {
                 enoughMana = false;
                 spawnUnit();
-            }else
-            {
-                _draggedObject.enabled = false;
-                _draggedObject.transform.position = transform.position;
             }
+            else
+            {
+                SoundManager.instance.Play(error_sound);
+            }
+
+            _draggedObject.enabled = false;
+            _draggedObject.transform.position = transform.position;
         }
     }
 
@@ -116,8 +117,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     private void spawnUnit()
     {
-        _draggedObject.enabled = false;
-        _draggedObject.transform.position = transform.position;
+        SoundManager.instance.Play(spawn_sound);
         GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
         GameManager.instance.mana[(int)_team] -= _cost;
         manaUpdate();
