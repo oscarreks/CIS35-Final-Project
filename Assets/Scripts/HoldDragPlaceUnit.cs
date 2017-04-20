@@ -13,6 +13,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     SpriteRenderer _draggedObject;
     public float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
     public AudioClip spawn_sound;
+    public AudioClip error_sound;
 
     void Start()
     {
@@ -91,6 +92,10 @@ public class HoldDragPlaceUnit : MonoBehaviour {
             {
                 enoughMana = false;
                 spawnUnit();
+            }
+            else
+            {
+                SoundManager.instance.Play(error_sound);
             }
 
             _draggedObject.enabled = false;

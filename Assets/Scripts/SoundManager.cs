@@ -6,7 +6,6 @@ using UnityEngine;
 /// A singleton that handles the sound
 /// </summary>
 /// 
-
 public class SoundManager : MonoBehaviour {
 
     public static SoundManager instance = null;
