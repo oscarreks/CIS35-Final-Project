@@ -95,11 +95,13 @@ public class GameManager : MonoBehaviour{
         }
     }
 
+    /*
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 0, 100, 100), "Red's Mana: " + mana[0]);
         GUI.Label(new Rect(0, 20, 100, 100), "Green's Mana: " + mana[1]);
     }
+    */
 
     //To generate starting troops
     private void SetupFieldTest()

@@ -66,31 +66,30 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     void OnMouseDown()
     {
-        if (enoughMana)
-        {
+        //if (enoughMana)
+        //{
             _draggedObject.enabled = true;
-        }
+        //}
     }
 
     private void OnMouseDrag()
     {
-        if (enoughMana)
-        {
+        //if (enoughMana)
+        //{
 
             float x = Mathf.Clamp(Mathf.CeilToInt(CurrentTouchPosition.x), _left_bounds + 1, _right_bounds) - 0.5f;
             float y = Mathf.Clamp(Mathf.CeilToInt(CurrentTouchPosition.y), _bot_bounds + 1, _top_bounds) - 0.5f;
             _draggedObject.transform.position = new Vector2(x, y);
             
-        }
+        //}
     }
 
     private void OnMouseUp()
     {
-        if (enoughMana)
-        {
-            if (validPlacement())
+        //if (enoughMana)
+        //{
+            if (validPlacement() && enoughMana)
             {
-                enoughMana = false;
                 spawnUnit();
             }
             else
@@ -100,7 +99,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
             _draggedObject.enabled = false;
             _draggedObject.transform.position = transform.position;
-        }
+        //}
     }
 
     private bool validPlacement()

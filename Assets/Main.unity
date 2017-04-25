@@ -735,6 +735,11 @@ Prefab:
       propertyPath: spawn_sound
       value: 
       objectReference: {fileID: 8300000, guid: 4da9f08d8111db544a8801a10984d369, type: 3}
+    - target: {fileID: 114467460930498736, guid: bb8325a8a9d02c14f9f857d41d6d6a19,
+        type: 2}
+      propertyPath: error_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 09cb15fb38848bc48a9aceb5114a1a92, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb8325a8a9d02c14f9f857d41d6d6a19, type: 2}
   m_IsPrefabParent: 0
@@ -996,6 +1001,11 @@ Prefab:
       propertyPath: spawn_sound
       value: 
       objectReference: {fileID: 8300000, guid: a917e411c8b10c148a7f084ecefce15a, type: 3}
+    - target: {fileID: 114313970459328740, guid: 0b724ff4386de5b449a8a5915082d6ee,
+        type: 2}
+      propertyPath: error_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 09cb15fb38848bc48a9aceb5114a1a92, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b724ff4386de5b449a8a5915082d6ee, type: 2}
   m_IsPrefabParent: 0

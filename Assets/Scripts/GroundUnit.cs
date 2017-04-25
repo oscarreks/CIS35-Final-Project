@@ -115,6 +115,7 @@ public class GroundUnit : Unit {
         FaceTarget();
         if (_rb.velocity.magnitude < _speed)
             _rb.AddRelativeForce(new Vector2(_speed, 0));  //In the future, to account for mass, this might be _speed*mass
+            //_rb.AddRelativeForce(Vector2.MoveTowards(transform.position, target_coords, _speed));
     }
 
     protected override void DetermineTarget()
