@@ -127,6 +127,7 @@ public class GroundUnit : Unit {
                 if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) <= UnitStats.sight_radius) 
                 {
                     //In the future, might need to iterate through all to find CLOSEST enemy
+                    //target = closestEnemy()
                     target = enemy;
                     target_coords = target.transform.position;
                     return;

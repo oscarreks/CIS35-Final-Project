@@ -6,12 +6,12 @@ PlayerSettings:
   serializedVersion: 10
   productGUID: 0e768b9f1cd0dbb4cb7f016693a3310c
   AndroidProfiler: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 2
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: CIS35-Prototype
+  companyName: Studio Modjo
+  productName: Tanks and Towers
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}

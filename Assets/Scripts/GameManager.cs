@@ -16,11 +16,11 @@ public class GameManager : MonoBehaviour{
     public GameObject HQ2;
     public GameObject prefab;
 
+    public int maxMana = 10;
     public int[] mana;
     public float mana_rate = 2.0f; //Gain 1 mana every n seconds
     public float mana_rate_cooldown;
     
-
 
     void Awake()
     {
@@ -40,7 +40,8 @@ public class GameManager : MonoBehaviour{
         //SetupFieldTest();
 
         mana = new int[2];
-        mana[0] = mana[1] = 3;
+        mana[0] = mana[1] = 6;
+
     }
 
     void Update()
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour{
         if (mana_rate_cooldown > mana_rate)
         {
             mana_rate_cooldown = 0;
-            if (mana[0] < 10)
+            if (mana[0] < maxMana)
             {
                 mana[0]++;
                 foreach( HoldDragPlaceUnit card in deck1)
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour{
                     card.manaUpdate();
                 }
             }
-            if (mana[1] < 10) {
+            if (mana[1] < maxMana) {
                 mana[1]++;
                 foreach (HoldDragPlaceUnit card in deck2)
                 {

@@ -30,6 +30,8 @@ public class ManaBarManager : MonoBehaviour
             maxPixelWidth *= -1;
         }
 
+
+
     }
 
     void OnGUI()
