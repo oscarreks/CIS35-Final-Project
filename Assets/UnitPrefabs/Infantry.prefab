@@ -111,7 +111,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.16
+  m_Radius: 0.13183975
 --- !u!61 &61434423875463524
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -123,9 +123,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.038166165}
+  m_Offset: {x: -0.010839462, y: 0.011969328}
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.41366768}
+  m_Size: {x: 0.20609687, y: 0.31339622}
 --- !u!82 &82714864085816534
 AudioSource:
   m_ObjectHideFlags: 1
