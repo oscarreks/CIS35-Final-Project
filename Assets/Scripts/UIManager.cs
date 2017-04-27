@@ -33,9 +33,12 @@ public class UIManager : MonoBehaviour {
     {
         float ratio_0 = GameManager.instance.mana[0] / maxMana;
         float ratio_1 = GameManager.instance.mana[1] / maxMana;
-        print("ratio_0 = " + ratio_0);
+
         manaLeft.rectTransform.sizeDelta = new Vector2(ratio_0 * maxWidth, manaLeft.rectTransform.rect.height);
+        manaLeft.rectTransform.anchoredPosition = new Vector2(maxWidth/2 * (-1 + ratio_0), 0);
         //manaLeft.rectTransform.localScale = new Vector3(ratio_0, 1, 1);
+        manaRight.rectTransform.sizeDelta = new Vector2(ratio_1 * maxWidth, manaRight.rectTransform.rect.height);
+        manaRight.rectTransform.anchoredPosition = new Vector2(maxWidth/2 * (1 - ratio_1), 0);
     }
 
     void Update()

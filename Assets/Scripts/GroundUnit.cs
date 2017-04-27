@@ -152,32 +152,10 @@ public class GroundUnit : Unit {
             side_index = 1;
         }
 
-        if(Vector2.Distance(transform.position, path[side_index][next_node]) < 0.5f && next_node < path.Length)
+        if(Vector2.Distance(transform.position, path[side_index][next_node]) < 0.9f && next_node < path.Length)
         {
             next_node++;
         }
         
     }
-
-    /*
-    private void Astar()
-    {
-        int goal = 3;
-        SimplePriorityQueue<node, float> PQ = new SimplePriorityQueue<node, float>(); //create new pq
-        PQ.Enqueue(new node(transform.position, 1000), 0);
-        int[] came_from = new int[5];
-        int[] cost_so_far = new int[5];
-        came_from[4] = 4;
-        cost_so_far[4] = 0;
-
-        while( PQ.Count != 0)
-        {
-            node current = PQ.Dequeue();
-            if (current.position == path[goal].position) { return; }
-
-            
-        }
-        
-    }
-    */
 }

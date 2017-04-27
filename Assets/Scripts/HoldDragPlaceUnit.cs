@@ -6,26 +6,27 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     public TEAM _team;
     public UNIT_NAME _name;
+    public int _numUnits;
 
-    private int _cost;
+    public int _cost;
 
     public bool enoughMana;
     SpriteRenderer _draggedObject;
-    public float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
+    private float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
+    public Sprite _transparency;
     public AudioClip spawn_sound;
     public AudioClip error_sound;
 
     void Start()
     {
-        GameObject temp = GameManager.instance.prefabs[(int)_name];
         _draggedObject = new GameObject().AddComponent<SpriteRenderer>();
         _draggedObject.transform.position = transform.position;
         _draggedObject.enabled = false;
-        _draggedObject.sprite = temp.GetComponent<SpriteRenderer>().sprite;
+        _draggedObject.sprite = _transparency;
         _draggedObject.color = new Color(1, 1, 1, 0.5f);
         _draggedObject.transform.localScale = new Vector3(2, 2, 2);
 
-        _cost = UnitStats.index[(int)_name].cost;
+        //_cost = UnitStats.index[(int)_name].cost;
 
         manaUpdate();
 
@@ -117,9 +118,24 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     private void spawnUnit()
     {
         SoundManager.instance.Play(spawn_sound);
-        GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
+        
         GameManager.instance.mana[(int)_team] -= _cost;
         manaUpdate();
+
+        switch(_numUnits)
+        {
+            case 1:
+                GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
+                return;
+            case 2:
+                GameManager.instance.spawn(_team, _name, new Vector2(CurrentTouchPosition.x, CurrentTouchPosition.y + .5f));
+                GameManager.instance.spawn(_team, _name, new Vector2(CurrentTouchPosition.x, CurrentTouchPosition.y - .5f));
+                return;
+            default:
+                GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
+                return;
+        }
+
     }
 
 }

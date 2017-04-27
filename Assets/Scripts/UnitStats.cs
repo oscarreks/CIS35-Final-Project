@@ -28,8 +28,8 @@ public static class UnitStats {
     public static Stats[] index =
     {
         new Stats(10, 45, 1, 4, 2, 1),          //TANK
-        new Stats(10, 65, 0.5f, 5, 2, 1.5f),    //MTANK
-        new Stats(4, 25, 2, 2, 3, 2),           //SOLDIER
+        new Stats(8, 100, 0.5f, 5, 2, 1.3f),    //MTANK
+        new Stats(4, 25, 1.5f, 2, 2, 2),           //SOLDIER
         new Stats(0, 100, 0, 4, 0, 1)           //BUILDING
     };
 }

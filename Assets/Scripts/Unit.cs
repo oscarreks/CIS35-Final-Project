@@ -145,11 +145,11 @@ public abstract class Unit : MonoBehaviour
     private IEnumerator pulseRed()
     {
         float red = 0.5f;
-        GetComponent<SpriteRenderer>().color = new Color(red, 1, 1);
+        GetComponentInChildren<SpriteRenderer>().color = new Color(red, 1, 1);
         yield return new WaitForSeconds(.1f);
         while(red < 1.0f)
         {
-            GetComponent<SpriteRenderer>().color = new Color(red, 1, 1);
+            GetComponentInChildren<SpriteRenderer>().color = new Color(red, 1, 1);
             red += 0.02f; //this affects the pulse speed
         }
     }
