@@ -31,14 +31,14 @@ public class MoveBullet : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.GetComponent<Unit>())
+        if (!other.gameObject.GetComponent<Unit>() && !other.gameObject.GetComponent<Tower>())
         {
             return;
         }
 
         if (other.gameObject.GetComponent<Unit>()._team != _team)
         {
-            other.gameObject.SendMessage("addHealth", -_damage);
+            other.gameObject.BroadcastMessage("addHealth", -_damage);
             Destroy(gameObject);
         }
     }

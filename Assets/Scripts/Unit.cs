@@ -94,7 +94,7 @@ public abstract class Unit : MonoBehaviour
 
         if (_health < 0)
         {
-            Destroy(gameObject);    //maybe virtual
+            startDeath(); //maybe virtual
         }
     }
 
@@ -209,6 +209,14 @@ public abstract class Unit : MonoBehaviour
             targetingHQ = true;
         }
 
+    }
+
+    /// <summary>
+    /// By default, destroys this GameObject, but can be extended if events upon death are wanted
+    /// </summary>
+    protected virtual void startDeath()
+    {
+        Destroy(gameObject);
     }
 
     //maybe have faceObject() here

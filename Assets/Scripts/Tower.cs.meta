@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 70922b82320d90b488e3452a927595bf
-timeCreated: 1493393957
+guid: 3600d26caca0ecf48bd077a39685e2ce
+timeCreated: 1493390730
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - HealthBarTexture: {fileID: 2800000, guid: 7108c9203f7995440b2a9d605b9db1bd, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
