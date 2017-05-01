@@ -26,6 +26,8 @@ public abstract class Unit : MonoBehaviour
     public AudioClip firing_sound;
     public AudioSource audio_source;
 
+    public Animator anim;
+
     protected List<GameObject> _enemyTeam;
     protected GameObject _enemyHQ;
     protected Rigidbody2D _rb;
@@ -63,6 +65,7 @@ public abstract class Unit : MonoBehaviour
         DetermineTarget();
         _rb = GetComponent<Rigidbody2D>();
         audio_source = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -78,9 +81,11 @@ public abstract class Unit : MonoBehaviour
     void FixedUpdate()
     {
         DetermineTarget();          //virtual
+        anim.SetBool("isMoving", isMoving);
 
         if (TargetInRange())
         {
+            
             FaceTarget();
             if (isMoving)
                 stopMoving();

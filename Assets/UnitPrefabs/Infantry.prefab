@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212429856099114598}
   - component: {fileID: 95579267955214498}
   - component: {fileID: 114950725447388972}
+  - component: {fileID: 111088152465113102}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -43,7 +44,8 @@ GameObject:
   - component: {fileID: 58469229947026964}
   - component: {fileID: 114032637560764714}
   - component: {fileID: 82714864085816534}
-  - component: {fileID: 111424211910956116}
+  - component: {fileID: 95159104360737650}
+  - component: {fileID: 111807732006100992}
   m_Layer: 0
   m_Name: Infantry
   m_TagString: Untagged
@@ -206,6 +208,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95159104360737650
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1531702954804374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9460e10fd778a0147916cf4a7cd47b82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95579267955214498
 Animator:
   serializedVersion: 3
@@ -223,7 +242,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!111 &111424211910956116
+--- !u!111 &111088152465113102
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1197290138153678}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: ec0ffcfcfa1b0a94bb78c18176abf62c, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!111 &111807732006100992
 Animation:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -231,7 +264,7 @@ Animation:
   m_GameObject: {fileID: 1531702954804374}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: 1c54e42bb06a46b40ad521a2f2dccee1, type: 2}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
@@ -282,8 +315,9 @@ MonoBehaviour:
   bullet_prefab: {fileID: 1953314100899828, guid: 36f2d2ffa9041d14285ce00b818a3386,
     type: 2}
   damage_sound: {fileID: 8300000, guid: 3169ecdcef1d6a94d854ed8ee7d94aa6, type: 3}
-  firing_sound: {fileID: 8300000, guid: d210f90a1ea704342bb272645a701fb0, type: 3}
+  firing_sound: {fileID: 8300000, guid: dd1265a1ecb34d14abd1579b207c255b, type: 3}
   audio_source: {fileID: 82714864085816534}
+  anim: {fileID: 0}
   next_node: 0
   side_index: 1
 --- !u!114 &114950725447388972

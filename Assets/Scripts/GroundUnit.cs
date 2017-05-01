@@ -89,17 +89,29 @@ public class GroundUnit : Unit {
     /// </summary>
     protected override void damageTarget()
     {
+        //anim.SetBool("Firing", _fire_cooldown > _attack_speed);
         if (_fire_cooldown > _attack_speed)
         {
             //TODO - tear this out, just do straight damage, delayed with a coroutine
+            /*
             GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
             newBullet.GetComponent<MoveBullet>()._team = _team;
+            */
+
+            //float dist = Vector2.Distance(transform.position, target_coords);
+
+            target.BroadcastMessage("addHealth", -_attack);
             _fire_cooldown = 0;
 
+            anim.SetTrigger("Fired");
+
+
             //OSCAR's SUPER ELEGANT AUDIO CODE
-            SoundManager.instance.Play(firing_sound);
+            SoundManager.instance.Play(firing_sound, 0.3f);
 
             //float dist = Vector2.Distance(transform.position, target.transform.position);
+
+            
 
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour {
 
-    public float _health;
+    public float _health = 200;
 
     void Update()
     {
@@ -17,10 +17,12 @@ public class Tower : MonoBehaviour {
     public void addHealth(float health)
     {
         _health += health;
+        print(gameObject.name + ": " + _health);
     }
 
     public void startDeath()
     {
+        //make cool death animation
         Destroy(gameObject);
     }
 }

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour{
 
         mana = new int[2];
         mana[0] = mana[1] = 6;
-
+        spawnTowers();
     }
 
     void Update()
@@ -109,6 +109,15 @@ public class GameManager : MonoBehaviour{
     {
         spawn(TEAM.RED, UNIT_NAME.TANK, new Vector2(10, 5));
         spawn(TEAM.GREEN, UNIT_NAME.MTANK, new Vector2(4, 5));
+    }
+
+    public void spawnTowers()
+    {
+        GameObject newTower1 = Instantiate(HQ1, new Vector2(2.5f, 6), Quaternion.identity);
+        GameObject newTower2 = Instantiate(HQ2, new Vector2(19.5f, 6), Quaternion.identity);
+
+        team1.Add(newTower1);
+        team2.Add(newTower2);
     }
 
     //For spawning a unit with an assigned team
