@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 58786771825705118}
   - component: {fileID: 114851428642305280}
   - component: {fileID: 82854857751162598}
+  - component: {fileID: 95853086452647742}
   m_Layer: 0
   m_Name: RedRecon
   m_TagString: Untagged
@@ -204,6 +205,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95853086452647742
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432366207351574}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9460e10fd778a0147916cf4a7cd47b82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114105764366733584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,8 +280,9 @@ MonoBehaviour:
   bullet_prefab: {fileID: 1953314100899828, guid: 36f2d2ffa9041d14285ce00b818a3386,
     type: 2}
   damage_sound: {fileID: 8300000, guid: 3169ecdcef1d6a94d854ed8ee7d94aa6, type: 3}
-  firing_sound: {fileID: 8300000, guid: 7f41cc4edaa714c42939402d4ceaf238, type: 3}
+  firing_sound: {fileID: 8300000, guid: dd1265a1ecb34d14abd1579b207c255b, type: 3}
   audio_source: {fileID: 82854857751162598}
+  anim: {fileID: 0}
   next_node: 0
   side_index: 1
 --- !u!212 &212220125618265044

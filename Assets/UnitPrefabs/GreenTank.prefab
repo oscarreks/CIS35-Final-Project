@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 58917951403901270}
   - component: {fileID: 114027146516096394}
   - component: {fileID: 82080431361169694}
+  - component: {fileID: 95356251181862844}
   m_Layer: 0
   m_Name: GreenTank
   m_TagString: Untagged
@@ -69,7 +70,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1769669662623794}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9862857, w: -0.16504739}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -204,6 +205,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95356251181862844
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221046415578396}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9460e10fd778a0147916cf4a7cd47b82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114027146516096394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,6 +282,7 @@ MonoBehaviour:
   damage_sound: {fileID: 8300000, guid: 3169ecdcef1d6a94d854ed8ee7d94aa6, type: 3}
   firing_sound: {fileID: 8300000, guid: 7f41cc4edaa714c42939402d4ceaf238, type: 3}
   audio_source: {fileID: 82080431361169694}
+  anim: {fileID: 0}
   next_node: 0
   side_index: 1
 --- !u!212 &212644670449615010
