@@ -6,6 +6,12 @@ public class Tower : MonoBehaviour {
 
     public float _health = 200;
 
+    void Start()
+    {
+        BroadcastMessage("initHealth", _health);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y / 12);
+    }
+
     void Update()
     {
         if(_health < 0)

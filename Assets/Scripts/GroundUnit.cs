@@ -92,28 +92,21 @@ public class GroundUnit : Unit {
         //anim.SetBool("Firing", _fire_cooldown > _attack_speed);
         if (_fire_cooldown > _attack_speed)
         {
-            //TODO - tear this out, just do straight damage, delayed with a coroutine
-            /*
-            GameObject newBullet = Instantiate(bullet_prefab, transform.position, transform.rotation);
-            newBullet.GetComponent<MoveBullet>()._team = _team;
-            */
-
-            //float dist = Vector2.Distance(transform.position, target_coords);
 
             target.BroadcastMessage("addHealth", -_attack);
             _fire_cooldown = 0;
 
-            anim.SetTrigger("Fired");
+            //anim.SetTrigger("Fired");
 
-
-            //OSCAR's SUPER ELEGANT AUDIO CODE
             SoundManager.instance.Play(firing_sound, 0.3f);
-
-            //float dist = Vector2.Distance(transform.position, target.transform.position);
-
-            
-
         }
+    }
+
+    //This probably isn't needed unless the distance is extreme
+    private IEnumerator delayDamage(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        target.BroadcastMessage("addHealth", -_attack);
     }
 
     /// <summary>
@@ -127,7 +120,6 @@ public class GroundUnit : Unit {
         FaceTarget();
         if (_rb.velocity.magnitude < _speed)
             _rb.AddRelativeForce(new Vector2(_speed, 0));  //In the future, to account for mass, this might be _speed*mass
-            //_rb.AddRelativeForce(Vector2.MoveTowards(transform.position, target_coords, _speed));
     }
 
     protected override void DetermineTarget()

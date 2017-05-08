@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UnitSpriteManager : MonoBehaviour {
 
-    public Sprite sprite;
     SpriteRenderer sr;
     public int face_state = 0;
 
@@ -37,6 +36,8 @@ public class UnitSpriteManager : MonoBehaviour {
                 sr.flipX = true;
                 break;
         }
+
+        
     }
 
     void LateUpdate()

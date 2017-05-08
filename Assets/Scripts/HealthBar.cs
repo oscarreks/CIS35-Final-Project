@@ -2,51 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BAR_SIZE {SMALL, MEDIUM, LARGE};
+
 public class HealthBar : MonoBehaviour {
 
+    public BAR_SIZE barSize = BAR_SIZE.MEDIUM;
+    private float barScale;
+
     public float maxHealth;
-    public float maxPixelWidth = 32;
-    public float pixelHeight = 6;
+    public float _current_health;
 
-    public Texture2D HealthBarTexture;
-
-    public float x;
-    public float y;
     public float x_offset;
-    public float y_offset = -24;
-    public Vector2 bar_position;
+    public float y_scale = 0.2f;
 
-    Unit parent;
-    float healthBarLength;
     float healthPercentage;
+
+    SpriteRenderer _sr;
 
     void Start()
     {
-        parent = GetComponent<Unit>();
-        if(parent == null)
+        //_sr = GetComponent<SpriteRenderer>();
+
+        switch (barSize)
         {
-            print("Componenet UNIT not found");
+            case BAR_SIZE.SMALL:
+                barScale = 0.8f;
+                break;
+            case BAR_SIZE.MEDIUM:
+                barScale = 1f;
+                break;
+            case BAR_SIZE.LARGE:
+                barScale = 1.5f;
+                break;
         }
-        else
-        {
-            maxHealth = parent._health;
-            x_offset = maxPixelWidth / 2;
-        }
+    }
+
+    public void initHealth(float health)
+    {
+        maxHealth = health;
+        _current_health = maxHealth;
+    }
+
+    public void addHealth(float health)
+    {
+        _current_health += health;
     }
 
     void Update()
     {
-        healthPercentage = parent._health / maxHealth;
-        healthBarLength = healthPercentage * maxPixelWidth;
-        bar_position = Camera.main.WorldToScreenPoint(transform.position);
+        healthPercentage = _current_health / maxHealth;                 // gets a float between 0-1
+        //x_offset = (float)maxHealth * (1 - healthPercentage) * 0.5f;    // gets the offset needed to align the bar left
 
-        x = bar_position.x - x_offset;
-        y = Camera.main.pixelHeight - bar_position.y + y_offset;
-        
-    }
-
-    void OnGUI()
-    {
-        GUI.DrawTexture(new Rect(x, y, healthBarLength, pixelHeight), HealthBarTexture);
+        GetComponent<SpriteRenderer>().transform.localScale = new Vector3(healthPercentage * barScale, y_scale, 1);
     }
 }

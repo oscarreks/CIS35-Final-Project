@@ -9,6 +9,8 @@ using UnityEngine;
 /// KEEP - addHealth, DetermineTarget, FaceObject, pulseRed, startDeath, stopMoving
 /// MOVE - moveTowardsTarget, lerpProjectile, targetInRange
 
+public enum UNIT_STATE { MOVING, TARGETING, ATTACKING }
+
 public abstract class Unit : MonoBehaviour
 {
 
@@ -18,8 +20,7 @@ public abstract class Unit : MonoBehaviour
     public GameObject target;
     public Vector2 target_coords;
     public float _attack, _health, _speed, _cost, _range, _attack_speed;
-    public float _fire_cooldown;
-    public GameObject bullet_prefab;
+    public float _fire_cooldown;    // Is incremented every update, and compared to _attack_speed
 
     //ROUGH AUDIO IMPLEMENTATION
     public AudioClip damage_sound;
@@ -58,14 +59,15 @@ public abstract class Unit : MonoBehaviour
             _enemyHQ = GameManager.instance.HQ1;
         }
 
-        //target = _enemyHQ;
-        //targetingHQ = true;
-        isMoving = true; //A bit misleading; it means addForce() is not being called
-        SetPath();      //Set up path for unit type
-        DetermineTarget();
+
+        isMoving = true;        //A bit misleading; it means addForce() is not being called
+        SetPath();              //Set up path for unit type
+        DetermineTarget();      //I think it's important this is after SetPath()...
         _rb = GetComponent<Rigidbody2D>();
         audio_source = GetComponent<AudioSource>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
+
+        BroadcastMessage("initHealth", _health);    // For setting up the HealthBar's initial health
     }
 
     void Update()
@@ -73,15 +75,11 @@ public abstract class Unit : MonoBehaviour
         _fire_cooldown += Time.deltaTime;
     }
 
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(transform.position.x, Screen.height - transform.position.y, 100, 100), "" + _health);
-    }
-
     void FixedUpdate()
     {
         DetermineTarget();          //virtual
         anim.SetBool("isMoving", isMoving);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y / 12);
 
         if (TargetInRange())
         {
@@ -143,7 +141,7 @@ public abstract class Unit : MonoBehaviour
         StopCoroutine(pulseRed());
         StartCoroutine(pulseRed());
 
-        //V------------------------and dis is where I play the sounds for now
+        
         SoundManager.instance.Play(damage_sound);
     }
 
