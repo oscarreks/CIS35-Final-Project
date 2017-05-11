@@ -27,10 +27,10 @@ public static class UnitStats {
 
     public static Stats[] index =
     {
-        new Stats(10, 45, 1, 4, 2, 1),          //TANK
-        new Stats(15, 100, 0.5f, 5, 2, 1.3f),   //MTANK
-        new Stats(4, 25, 1f, 2, 2, .75f),       //INFANTRY
-        new Stats(8, 30, 1.5f, 3, 2, .75f),     //RECON
+        new Stats(30, 120, 1.2f, 4, 2.5f, 1f),          //TANK
+        new Stats(50, 200, 0.8f, 5, 2.5f, 1.2f),   //MTANK
+        new Stats(15, 80, 1.2f, 2, 2, 0.75f),       //INFANTRY
+        new Stats(20, 100, 1.6f, 3, 2, 0.5f),     //RECON
         new Stats(0, 100, 0, 4, 0, 1)           //BUILDING
     };
 }

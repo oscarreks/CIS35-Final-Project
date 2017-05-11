@@ -5,12 +5,12 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GEInfantryController
+  m_Name: OSReconController
   m_Controller: {fileID: 9100000, guid: 9460e10fd778a0147916cf4a7cd47b82, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: ec0ffcfcfa1b0a94bb78c18176abf62c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: fc2255c7a18210c47be65937a7c41558, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c37cc2cabb054c441ba89b646ac460c1, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 65cba8f801162094e8197c4858ff0415, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 3ff6fa5bd91ce4c44890873a7ff8f6a6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4691255eeb271b5498480064e6fa7568, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 357b0900348daa041b0ba2dd104224f5, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 357b0900348daa041b0ba2dd104224f5, type: 2}

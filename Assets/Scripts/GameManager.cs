@@ -8,18 +8,18 @@ public class GameManager : MonoBehaviour{
     public static GameManager instance = null;
 
     public GameObject[] prefabs = new GameObject[2];
+    public GameObject HQ1;
+    public GameObject HQ2;
+
     public List<GameObject> team1 = new List<GameObject>();
     public List<GameObject> team2 = new List<GameObject>();
     public List<HoldDragPlaceUnit> deck1 = new List<HoldDragPlaceUnit>();
     public List<HoldDragPlaceUnit> deck2 = new List<HoldDragPlaceUnit>();
-    public GameObject HQ1;
-    public GameObject HQ2;
-    public GameObject prefab;
 
     public int maxMana = 10;
     public int[] mana;
     public float mana_rate = 2.0f; //Gain 1 mana every n seconds
-    public float mana_rate_cooldown;
+    private float mana_rate_cooldown;
     
 
     void Awake()
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour{
         Physics2D.gravity = Vector2.zero;
         //SetupFieldTest();
 
+        
         mana = new int[2];
         mana[0] = mana[1] = 6;
         spawnTowers();
@@ -123,19 +124,21 @@ public class GameManager : MonoBehaviour{
     //For spawning a unit with an assigned team
     public void spawn(TEAM t, UNIT_NAME n, Vector2 spawnPoint)
     {
-        GameObject newUnit = Instantiate(prefabs[(int)n], spawnPoint, Quaternion.identity);
+        int index = (prefabs.Length * (int)t) / 2 + (int)n;
+        print(index);
+        GameObject newUnit = Instantiate(prefabs[index], spawnPoint, Quaternion.identity);
         newUnit.GetComponent<Unit>()._team = t;
         newUnit.GetComponent<Unit>()._name = n;
 
-        if (t == TEAM.GREEN)
+        switch (t)
         {
-            team2.Add(newUnit);
-            return;
-        }
-        if(t == TEAM.RED)
-        {
-            team1.Add(newUnit);
-            return;
+            case TEAM.GREEN:
+                team2.Add(newUnit);
+                return;
+
+            case TEAM.RED:
+                team1.Add(newUnit);
+                return;
         }
     }
 }
