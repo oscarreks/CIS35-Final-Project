@@ -95,7 +95,7 @@ public abstract class Unit : MonoBehaviour
             moveTowardsTarget();    //abstract
         }
 
-        if (_health < 0)
+        if (_health <= 0)
         {
             startDeath(); //maybe virtual
         }
@@ -219,8 +219,6 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     protected virtual void startDeath()
     {
-        Destroy(gameObject);
+        Destroy(gameObject); 
     }
-
-    //maybe have faceObject() here
 }

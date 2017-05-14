@@ -12,7 +12,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     public bool enoughMana;
     SpriteRenderer _draggedObject;
-    private float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
+    public float _right_bounds, _left_bounds, _top_bounds, _bot_bounds;
     public Sprite _transparency;
     public AudioClip spawn_sound;
     public AudioClip error_sound;
@@ -33,11 +33,17 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         _top_bounds = 12;
         _bot_bounds = 0;
 
-        if(_team == TEAM.RED)
+        setBounds();
+    }
+
+    protected virtual void setBounds()
+    {
+        if (_team == TEAM.RED)
         {
             _right_bounds = 10;
             _left_bounds = 0;
-        }else
+        }
+        else
         {
             _right_bounds = 22;
             _left_bounds = 12;
@@ -57,7 +63,7 @@ public class HoldDragPlaceUnit : MonoBehaviour {
     }
 
 
-    Vector2 CurrentTouchPosition
+    protected Vector2 CurrentTouchPosition
     {
         get
         {
@@ -67,40 +73,28 @@ public class HoldDragPlaceUnit : MonoBehaviour {
 
     void OnMouseDown()
     {
-        //if (enoughMana)
-        //{
-            _draggedObject.enabled = true;
-        //}
+        _draggedObject.enabled = true;
     }
 
     private void OnMouseDrag()
     {
-        //if (enoughMana)
-        //{
+        _draggedObject.transform.position = snapToGrid(CurrentTouchPosition);
 
-            float x = Mathf.Clamp(Mathf.CeilToInt(CurrentTouchPosition.x), _left_bounds + 1, _right_bounds) - 0.5f;
-            float y = Mathf.Clamp(Mathf.CeilToInt(CurrentTouchPosition.y), _bot_bounds + 1, _top_bounds) - 0.5f;
-            _draggedObject.transform.position = new Vector2(x, y);
-            
-        //}
     }
 
     private void OnMouseUp()
     {
-        //if (enoughMana)
-        //{
-            if (validPlacement() && enoughMana)
-            {
-                spawnUnit();
-            }
-            else
-            {
-                SoundManager.instance.Play(error_sound);
-            }
+        if (validPlacement() && enoughMana)
+        {
+            spawnUnit();
+        }
+        else
+        {
+            SoundManager.instance.Play(error_sound);
+        }
 
-            _draggedObject.enabled = false;
-            _draggedObject.transform.position = transform.position;
-        //}
+        _draggedObject.enabled = false;
+        _draggedObject.transform.position = transform.position;
     }
 
     private bool validPlacement()
@@ -115,27 +109,35 @@ public class HoldDragPlaceUnit : MonoBehaviour {
         return true;
     }
 
-    private void spawnUnit()
+    protected virtual void spawnUnit()
     {
         SoundManager.instance.Play(spawn_sound);
         
         GameManager.instance.mana[(int)_team] -= _cost;
         manaUpdate();
+        Vector2 gridPos = snapToGrid(CurrentTouchPosition);
 
         switch(_numUnits)
         {
             case 1:
-                GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
+                GameManager.instance.spawn(_team, _name, gridPos);
                 return;
             case 2:
-                GameManager.instance.spawn(_team, _name, new Vector2(CurrentTouchPosition.x, CurrentTouchPosition.y + .5f));
-                GameManager.instance.spawn(_team, _name, new Vector2(CurrentTouchPosition.x, CurrentTouchPosition.y - .5f));
+                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y + .5f));
+                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y - .5f));
                 return;
             default:
-                GameManager.instance.spawn(_team, _name, CurrentTouchPosition);
+                GameManager.instance.spawn(_team, _name, gridPos);
                 return;
         }
 
+    }
+
+    public Vector2 snapToGrid(Vector2 pos)
+    {
+        float x = Mathf.Clamp(Mathf.CeilToInt(pos.x), _left_bounds + 1, _right_bounds) - 0.5f;
+        float y = Mathf.Clamp(Mathf.CeilToInt(pos.y), _bot_bounds + 1, _top_bounds) - 0.5f;
+        return new Vector2(x, y);
     }
 
 }

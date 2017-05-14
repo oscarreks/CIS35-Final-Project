@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour{
 
     public int maxMana = 10;
     public int[] mana;
-    public float mana_rate = 2.0f; //Gain 1 mana every n seconds
+    public float mana_rate = 3.6f; //Gain 1 mana every n seconds
     private float mana_rate_cooldown;
     
 
@@ -42,12 +42,27 @@ public class GameManager : MonoBehaviour{
         
         mana = new int[2];
         mana[0] = mana[1] = 6;
+
+        foreach (HoldDragPlaceUnit card in deck1)
+        {
+            card.manaUpdate();
+        }
+
+        foreach (HoldDragPlaceUnit card in deck2)
+        {
+            card.manaUpdate();
+        }
+
         spawnTowers();
     }
 
     void Update()
     {
         mana_rate_cooldown += Time.deltaTime;
+        team1.RemoveAll(unit => unit == null); //Tried calling from onDestroy() in Unit, doesn't work
+        team2.RemoveAll(unit => unit == null);
+        //TESTS
+        testFireball();
 
         if (mana_rate_cooldown > mana_rate)
         {
@@ -68,9 +83,6 @@ public class GameManager : MonoBehaviour{
                 }
             }
         }
-
-        //testSpawning();
-
     }
 
 
@@ -97,13 +109,25 @@ public class GameManager : MonoBehaviour{
         }
     }
 
-    /*
-    private void OnGUI()
+    private void testFireball()
     {
-        GUI.Label(new Rect(0, 0, 100, 100), "Red's Mana: " + mana[0]);
-        GUI.Label(new Rect(0, 20, 100, 100), "Green's Mana: " + mana[1]);
+
+        if (Input.GetKeyDown("space"))
+        {
+            List<GameObject> enemys = team1;
+            Vector2 center = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            foreach ( GameObject unit in enemys)
+            {
+                if(Vector2.Distance(center, unit.transform.position) < 1)
+                {
+                    unit.BroadcastMessage("addHealth", -10);
+                    Vector2 knockback = (Vector2)unit.transform.position - center;
+                    knockback = knockback.normalized * 100;
+                    unit.GetComponent<Rigidbody2D>().AddForce(knockback);
+                }
+            }
+        }
     }
-    */
 
     //To generate starting troops
     private void SetupFieldTest()
