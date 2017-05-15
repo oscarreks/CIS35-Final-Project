@@ -113,7 +113,6 @@ public abstract class Unit : MonoBehaviour
     {
         if(target == null) { return false; }
         return Vector2.Distance(transform.position, target_coords) < _range;
-        
     }
 
     // ---- CORE FUNCTIONS ----

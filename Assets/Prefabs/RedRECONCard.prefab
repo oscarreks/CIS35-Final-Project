@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1578639646550830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.28894567, y: 6.30583, z: -3}
+  m_LocalPosition: {x: -0.49, y: 6.32, z: -3}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,6 +72,10 @@ MonoBehaviour:
   _numUnits: 1
   _cost: 3
   enoughMana: 1
+  _right_bounds: 0
+  _left_bounds: 0
+  _top_bounds: 0
+  _bot_bounds: 0
   _transparency: {fileID: 21300010, guid: 0ff4d64b9996c90448c8f8cd5443b1e6, type: 3}
   spawn_sound: {fileID: 8300000, guid: 847155e5cdf5ddc4a926e78a82102aad, type: 3}
   error_sound: {fileID: 8300000, guid: 09cb15fb38848bc48a9aceb5114a1a92, type: 3}

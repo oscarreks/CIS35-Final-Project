@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour{
 
     //Singleton attempt
     public static GameManager instance = null;
+    public bool GAME_OVER = false;
 
     public GameObject[] prefabs = new GameObject[2];
     public GameObject HQ1;
@@ -61,8 +63,6 @@ public class GameManager : MonoBehaviour{
         mana_rate_cooldown += Time.deltaTime;
         team1.RemoveAll(unit => unit == null); //Tried calling from onDestroy() in Unit, doesn't work
         team2.RemoveAll(unit => unit == null);
-        //TESTS
-        testFireball();
 
         if (mana_rate_cooldown > mana_rate)
         {
@@ -82,6 +82,12 @@ public class GameManager : MonoBehaviour{
                     card.manaUpdate();
                 }
             }
+        }
+
+        if (GAME_OVER)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
         }
     }
 

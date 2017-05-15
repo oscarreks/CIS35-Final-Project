@@ -123,8 +123,13 @@ public class HoldDragPlaceUnit : MonoBehaviour {
                 GameManager.instance.spawn(_team, _name, gridPos);
                 return;
             case 2:
-                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y + .5f));
-                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y - .5f));
+                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y + .3f));
+                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y - .3f));
+                return;
+            case 3:
+                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y + .2f));
+                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x, gridPos.y - .2f));
+                GameManager.instance.spawn(_team, _name, new Vector2(gridPos.x + 0.1f, gridPos.y));
                 return;
             default:
                 GameManager.instance.spawn(_team, _name, gridPos);

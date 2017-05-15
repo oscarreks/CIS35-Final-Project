@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601244366434052}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 8.51, z: -3}
+  m_LocalPosition: {x: -0.55, y: 8.49, z: -3}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,9 +69,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 0
   _name: 2
-  _numUnits: 2
+  _numUnits: 3
   _cost: 2
   enoughMana: 0
+  _right_bounds: 0
+  _left_bounds: 0
+  _top_bounds: 0
+  _bot_bounds: 0
   _transparency: {fileID: 21300000, guid: 9f4eb8042c02a5947a3e0d9fe08e74eb, type: 3}
   spawn_sound: {fileID: 8300000, guid: 847155e5cdf5ddc4a926e78a82102aad, type: 3}
   error_sound: {fileID: 8300000, guid: 09cb15fb38848bc48a9aceb5114a1a92, type: 3}
