@@ -21,4 +21,4 @@ Status: early prototype
 ![red][redtank] *sprites are currently borrowed from Advance Wars*
 
  
-[redtank]: https://github.com/oscarreks/CIS35-Final-Project/blob/master/Assets/Sprites/APC-red.png "vrummm"
+[redtank]: https://github.com/oscarreks/CIS35-Final-Project/blob/master/Assets/Sprites/Units-OrangeStar/APC-red.png "vrummm"
