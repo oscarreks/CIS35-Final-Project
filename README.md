@@ -1,4 +1,4 @@
-# CIS35-Final-Project  
+# CIS35-Final-Project  ![red][redtank]
 Repository for storing the Unity files for our game, Tanks and Towers.
 
 A two-player strategy game where each player attempts to destroy the opponent's tower with their tanks.
