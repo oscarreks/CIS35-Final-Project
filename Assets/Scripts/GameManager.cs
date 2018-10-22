@@ -56,6 +56,27 @@ public class GameManager : MonoBehaviour{
             card.manaUpdate();
         }
 
+        // Instantiate valid tiles for placement.
+        // Things like the enemy side, your own towers, should not be valid
+        // 0 = no placement allowed
+        // 1 = player 1 allowed
+        // 2 = player 2 allowed
+        // 0 is the default int val in an int array
+        for(int j = 0; j < 12; j++)
+        {
+            // RED SIDE 
+            for(int i = 0; i < 10; i++){
+                tile_validity[i,j] = 1;
+            }
+
+            // GREEN SIDE
+            for(int i = 12; i < 22; i++){
+                tile_validity[i,j] = 2;
+            }
+
+
+        }
+
         spawnTowers();
     }
 
