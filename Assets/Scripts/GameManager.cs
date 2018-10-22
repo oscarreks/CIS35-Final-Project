@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour{
     public List<GameObject> team2 = new List<GameObject>();
     public List<HoldDragPlaceUnit> deck1 = new List<HoldDragPlaceUnit>();
     public List<HoldDragPlaceUnit> deck2 = new List<HoldDragPlaceUnit>();
+    public int[,] tile_validity = new int[22,12];
 
     public int maxMana = 10;
     public int[] mana;
